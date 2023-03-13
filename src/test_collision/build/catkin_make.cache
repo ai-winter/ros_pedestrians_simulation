@@ -1,0 +1,2 @@
+actor_collisions
+-DCATKIN_DEVEL_PREFIX=/home/winter/ROS/test_collision/devel -DCMAKE_INSTALL_PREFIX=/home/winter/ROS/test_collision/install -G Unix Makefiles

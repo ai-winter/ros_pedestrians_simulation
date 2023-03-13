@@ -87,7 +87,7 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
 
     if (scaling.empty())
       continue;
-
+ 
     // Process all the collisions in all the links
     for (const auto &collision : link->GetCollisions())
     {
