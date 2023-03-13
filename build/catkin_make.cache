@@ -1,2 +1,0 @@
-gazebo_sfm_plugin
--DCATKIN_DEVEL_PREFIX=/home/winter/ROS/test_ped/devel -DCMAKE_INSTALL_PREFIX=/home/winter/ROS/test_ped/install -G Unix Makefiles

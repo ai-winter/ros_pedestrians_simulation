@@ -1,8 +1,0 @@
-prefix=/home/winter/ROS/test_collision/install
-
-Name: test_collision
-Description: Description of test_collision
-Version: 1.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib -lPedestrianSFMPlugin
-Requires: gazebo_ros roscpp

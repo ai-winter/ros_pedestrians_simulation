@@ -1,8 +1,0 @@
-prefix=/home/winter/ROS/test_ped/devel
-
-Name: gazebo_sfm_plugin
-Description: Description of gazebo_sfm_plugin
-Version: 1.0.0
-Cflags: -I/home/winter/ROS/test_ped/src/gazebo_sfm_plugin/include
-Libs: -L${prefix}/lib -lPedestrianSFMPlugin
-Requires: gazebo_ros roscpp
