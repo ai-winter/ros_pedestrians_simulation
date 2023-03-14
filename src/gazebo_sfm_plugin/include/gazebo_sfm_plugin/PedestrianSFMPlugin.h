@@ -30,6 +30,7 @@
 #include "gazebo/common/Plugin.hh"
 #include "gazebo/physics/physics.hh"
 #include "gazebo/util/system.hh"
+#include <gazebo/transport/transport.hh>
 
 // Social Force Model
 #include <lightsfm/sfm.hpp>
@@ -73,6 +74,7 @@ private:
 
    /// \brief this actor as a SFM agent
 private:
+transport::NodePtr node;
   sfm::Agent sfmActor;
 
   /// \brief names of the other models in my walking group.

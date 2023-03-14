@@ -1,28 +1,43 @@
 
 <launch>
-    <!-- <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+      <arg name="map" default="warehouse" doc="map type [warehouse, workshop, turtlebot3_house, ...]" />
     <!-- 机器人初始位姿 -->
-    <arg name="x_pos" default="-2.0"/>
+    <arg name="x_pos" default="0.0"/>
     <arg name="y_pos" default="0.0"/>
     <arg name="z_pos" default="0.0"/>
-    <arg name="yaw"   default="1.57"/>
+    <arg name="yaw"   default="0"/>
 
-    <!-- 机器人描述文件，NOTE!!!! 在inorder前应该是两个杠, 因为注释里不能有两个杠所以删去了一个, 记得补上 -->
-    <!-- <param name="robot_description" command="$(find xacro)/xacro -inorder $(find gazebo_sfm_plugin)/urdf/turtlebot3_$(arg model).urdf.xacro" /> -->
+    <!-- 机器人描述文件 -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find gazebo_sfm_plugin)/urdf/turtlebot3_$(arg model).urdf.xacro" />
 
     
+  <!-- start map-server and publish user map -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find gazebo_sfm_plugin)/maps/$(arg map)/$(arg map).yaml" unless="$(eval arg('map') == '')"/>
+
     <!-- 发布机器人状态 -->
-    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
-    <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> -->
-    <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find gazebo_sfm_plugin)/media/models"/>
-    <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find gazebo_sfm_plugin)/media/models"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <!-- <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find gazebo_sfm_plugin)/media/models"/>
+    <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find gazebo_sfm_plugin)/media/models"/> -->
     
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-      <arg name="world_name" value="$(find gazebo_sfm_plugin)/worlds/cafe.world"/>
+      <arg name="world_name" value="$(find gazebo_sfm_plugin)/worlds/warehouse.world"/>
     </include>
 
     <!-- 添加Gazebo模型 -->
-    <!-- <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" /> -->
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
+     <!-- AMCL -->
+        <include file="$(find gazebo_sfm_plugin)/launch/include/location_methods/amcl.launch.xml">
+            <arg name="robot_x" value="$(arg x_pos)" />
+            <arg name="robot_y" value="$(arg y_pos)" />
+            <arg name="robot_z" value="$(arg z_pos)" />
+        </include>
+        <!-- MoveBase-->
+        <include file="$(find gazebo_sfm_plugin)/launch/include/navigation/move_base.launch.xml">
+            <arg name="robot" value="$(arg model)" />
+        </include>
 
+          <node name="rviz" pkg="rviz" type="rviz" args="-d $(find gazebo_sfm_plugin)/rviz/test.rviz"/>
 </launch>

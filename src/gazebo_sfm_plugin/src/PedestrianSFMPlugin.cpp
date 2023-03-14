@@ -37,7 +37,13 @@ PedestrianSFMPlugin::PedestrianSFMPlugin() {}
 /////////////////////////////////////////////////
 void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
 
-
+  // Create the node
+  this->node = transport::NodePtr(new transport::Node());
+  #if GAZEBO_MAJOR_VERSION < 8
+  this->node->Init(this->model->GetWorld()->GetName());
+  #else
+  this->node->Init(_model->GetWorld()->Name());
+  #endif
 
 
   
@@ -382,6 +388,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo &_info) {
   }
   actorPose.Pos().X(this->sfmActor.position.getX());
   actorPose.Pos().Y(this->sfmActor.position.getY());
+  actorPose.Pos().Z(1.0);
   actorPose.Rot() =
       ignition::math::Quaterniond(1.5707, 0, yaw); // rpy.Z()+yaw.Radian());
   //}
@@ -389,7 +396,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo &_info) {
   // Make sure the actor stays within bounds
   // actorPose.Pos().X(std::max(-3.0, std::min(3.5, actorPose.Pos().X())));
   // actorPose.Pos().Y(std::max(-10.0, std::min(2.0, actorPose.Pos().Y())));
-  actorPose.Pos().Z(1.2138);
+  // actorPose.Pos().Z(1.2138);
 
   // Distance traveled is used to coordinate motion with the walking
   // animation
