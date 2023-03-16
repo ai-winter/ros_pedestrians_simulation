@@ -34,7 +34,7 @@ catkin_package(
 )
 
 
-add_library(PedestrianSFMPlugin src/PedestrianSFMPlugin.cpp)
+add_library(PedestrianSFMPlugin src/pedestrian_sfm_plugin.cpp)
 target_link_libraries(PedestrianSFMPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES}) #${Boost_LIBRARIES
 
 install(TARGETS

@@ -786,12 +786,6 @@ gazebo_proto_msgs_lib:FILEPATH=/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so
 //The directory containing a CMake configuration file for gazebo_ros.
 gazebo_ros_DIR:PATH=/opt/ros/noetic/share/gazebo_ros/cmake
 
-//Value Computed by CMake
-gazebo_sfm_plugin_BINARY_DIR:STATIC=/home/winter/ROS/test_ped/build/gazebo_sfm_plugin
-
-//Value Computed by CMake
-gazebo_sfm_plugin_SOURCE_DIR:STATIC=/home/winter/ROS/test_ped/src/gazebo_sfm_plugin
-
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/noetic/share/gencpp/cmake
 
@@ -900,6 +894,12 @@ octomap_DIR:PATH=/usr/lib/x86_64-linux-gnu/octomap
 
 //Path to a library.
 onelib:FILEPATH=/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so
+
+//Value Computed by CMake
+pedestrian_sfm_plugin_BINARY_DIR:STATIC=/home/winter/ROS/test_ped/build/gazebo_sfm_plugin
+
+//Value Computed by CMake
+pedestrian_sfm_plugin_SOURCE_DIR:STATIC=/home/winter/ROS/test_ped/src/gazebo_sfm_plugin
 
 //Path to a library.
 pkgcfg_lib_BULLET_BulletCollision:FILEPATH=/usr/lib/x86_64-linux-gnu/libBulletCollision.so

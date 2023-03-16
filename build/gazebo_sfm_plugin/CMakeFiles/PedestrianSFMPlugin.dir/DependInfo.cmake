@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/PedestrianSFMPlugin.cpp" "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o"
+  "/home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/pedestrian_sfm_plugin.cpp" "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -25,7 +25,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
   "PedestrianSFMPlugin_EXPORTS"
   "ROSCONSOLE_BACKEND_LOG4CXX"
   "ROS_BUILD_SHARED_LIBS=1"
-  "ROS_PACKAGE_NAME=\"gazebo_sfm_plugin\""
+  "ROS_PACKAGE_NAME=\"pedestrian_sfm_plugin\""
   )
 
 # The include file search paths:

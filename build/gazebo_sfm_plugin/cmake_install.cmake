@@ -38,18 +38,18 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/catkin_generated/installspace/gazebo_sfm_plugin.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/catkin_generated/installspace/pedestrian_sfm_plugin.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gazebo_sfm_plugin/cmake" TYPE FILE FILES
-    "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/catkin_generated/installspace/gazebo_sfm_pluginConfig.cmake"
-    "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/catkin_generated/installspace/gazebo_sfm_pluginConfig-version.cmake"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/pedestrian_sfm_plugin/cmake" TYPE FILE FILES
+    "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/catkin_generated/installspace/pedestrian_sfm_pluginConfig.cmake"
+    "/home/winter/ROS/test_ped/build/gazebo_sfm_plugin/catkin_generated/installspace/pedestrian_sfm_pluginConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gazebo_sfm_plugin" TYPE FILE FILES "/home/winter/ROS/test_ped/src/gazebo_sfm_plugin/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/pedestrian_sfm_plugin" TYPE FILE FILES "/home/winter/ROS/test_ped/src/gazebo_sfm_plugin/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

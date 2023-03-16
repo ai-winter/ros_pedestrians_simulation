@@ -1,2 +1,3 @@
 source ../../../devel/setup.bash
-roslaunch gazebo_sfm_plugin cafe.launch
+python ./pedestrians_generate.py pedestrians_config.yaml
+roslaunch gazebo_sfm_plugin main.launch

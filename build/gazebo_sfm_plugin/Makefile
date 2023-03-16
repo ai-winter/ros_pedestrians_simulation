@@ -1202,32 +1202,32 @@ dynamic_reconfigure_gencfg/fast:
 	cd /home/winter/ROS/test_ped/build && $(MAKE) -f gazebo_sfm_plugin/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make gazebo_sfm_plugin/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
 .PHONY : dynamic_reconfigure_gencfg/fast
 
-src/PedestrianSFMPlugin.o: src/PedestrianSFMPlugin.cpp.o
+src/pedestrian_sfm_plugin.o: src/pedestrian_sfm_plugin.cpp.o
 
-.PHONY : src/PedestrianSFMPlugin.o
+.PHONY : src/pedestrian_sfm_plugin.o
 
 # target to build an object file
-src/PedestrianSFMPlugin.cpp.o:
-	cd /home/winter/ROS/test_ped/build && $(MAKE) -f gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/build.make gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o
-.PHONY : src/PedestrianSFMPlugin.cpp.o
+src/pedestrian_sfm_plugin.cpp.o:
+	cd /home/winter/ROS/test_ped/build && $(MAKE) -f gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/build.make gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o
+.PHONY : src/pedestrian_sfm_plugin.cpp.o
 
-src/PedestrianSFMPlugin.i: src/PedestrianSFMPlugin.cpp.i
+src/pedestrian_sfm_plugin.i: src/pedestrian_sfm_plugin.cpp.i
 
-.PHONY : src/PedestrianSFMPlugin.i
+.PHONY : src/pedestrian_sfm_plugin.i
 
 # target to preprocess a source file
-src/PedestrianSFMPlugin.cpp.i:
-	cd /home/winter/ROS/test_ped/build && $(MAKE) -f gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/build.make gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.i
-.PHONY : src/PedestrianSFMPlugin.cpp.i
+src/pedestrian_sfm_plugin.cpp.i:
+	cd /home/winter/ROS/test_ped/build && $(MAKE) -f gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/build.make gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.i
+.PHONY : src/pedestrian_sfm_plugin.cpp.i
 
-src/PedestrianSFMPlugin.s: src/PedestrianSFMPlugin.cpp.s
+src/pedestrian_sfm_plugin.s: src/pedestrian_sfm_plugin.cpp.s
 
-.PHONY : src/PedestrianSFMPlugin.s
+.PHONY : src/pedestrian_sfm_plugin.s
 
 # target to generate assembly for a file
-src/PedestrianSFMPlugin.cpp.s:
-	cd /home/winter/ROS/test_ped/build && $(MAKE) -f gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/build.make gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.s
-.PHONY : src/PedestrianSFMPlugin.cpp.s
+src/pedestrian_sfm_plugin.cpp.s:
+	cd /home/winter/ROS/test_ped/build && $(MAKE) -f gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/build.make gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.s
+.PHONY : src/pedestrian_sfm_plugin.cpp.s
 
 # Help Target
 help:
@@ -1311,9 +1311,9 @@ help:
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... dynamic_reconfigure_generate_messages_eus"
 	@echo "... dynamic_reconfigure_gencfg"
-	@echo "... src/PedestrianSFMPlugin.o"
-	@echo "... src/PedestrianSFMPlugin.i"
-	@echo "... src/PedestrianSFMPlugin.s"
+	@echo "... src/pedestrian_sfm_plugin.o"
+	@echo "... src/pedestrian_sfm_plugin.i"
+	@echo "... src/pedestrian_sfm_plugin.s"
 .PHONY : help
 
 

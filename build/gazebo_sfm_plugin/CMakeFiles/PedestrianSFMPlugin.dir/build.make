@@ -57,27 +57,27 @@ include gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/progress.make
 # Include the compile flags for this target's objects.
 include gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/flags.make
 
-gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o: gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/flags.make
-gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o: /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/PedestrianSFMPlugin.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/winter/ROS/test_ped/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o"
-	cd /home/winter/ROS/test_ped/build/gazebo_sfm_plugin && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o -c /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/PedestrianSFMPlugin.cpp
+gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o: gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/flags.make
+gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o: /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/pedestrian_sfm_plugin.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/winter/ROS/test_ped/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o"
+	cd /home/winter/ROS/test_ped/build/gazebo_sfm_plugin && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o -c /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/pedestrian_sfm_plugin.cpp
 
-gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.i"
-	cd /home/winter/ROS/test_ped/build/gazebo_sfm_plugin && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/PedestrianSFMPlugin.cpp > CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.i
+gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.i"
+	cd /home/winter/ROS/test_ped/build/gazebo_sfm_plugin && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/pedestrian_sfm_plugin.cpp > CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.i
 
-gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.s"
-	cd /home/winter/ROS/test_ped/build/gazebo_sfm_plugin && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/PedestrianSFMPlugin.cpp -o CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.s
+gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.s"
+	cd /home/winter/ROS/test_ped/build/gazebo_sfm_plugin && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/winter/ROS/test_ped/src/gazebo_sfm_plugin/src/pedestrian_sfm_plugin.cpp -o CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.s
 
 # Object files for target PedestrianSFMPlugin
 PedestrianSFMPlugin_OBJECTS = \
-"CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o"
+"CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o"
 
 # External object files for target PedestrianSFMPlugin
 PedestrianSFMPlugin_EXTERNAL_OBJECTS =
 
-/home/winter/ROS/test_ped/devel/lib/libPedestrianSFMPlugin.so: gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/PedestrianSFMPlugin.cpp.o
+/home/winter/ROS/test_ped/devel/lib/libPedestrianSFMPlugin.so: gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/src/pedestrian_sfm_plugin.cpp.o
 /home/winter/ROS/test_ped/devel/lib/libPedestrianSFMPlugin.so: gazebo_sfm_plugin/CMakeFiles/PedestrianSFMPlugin.dir/build.make
 /home/winter/ROS/test_ped/devel/lib/libPedestrianSFMPlugin.so: /opt/ros/noetic/lib/libgazebo_ros_api_plugin.so
 /home/winter/ROS/test_ped/devel/lib/libPedestrianSFMPlugin.so: /opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so

@@ -4,13 +4,8 @@
   <version>1.0.0</version>
   <description>The gazebo_sfm_plugin package</description>
 
-  <maintainer email="noeperez@upo.es">Noé Pérez-Higueras</maintainer>
-
-  <license>BSD</license>
-
-  <url type="repository">https://github.com/robotics-upo/gazebo_sfm_plugin</url>
-
-  <author>Noé Pérez</author>
+  <maintainer email="winter@todo.todo">winter</maintainer>
+  <license>GPL3</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>lightsfm</build_depend>
@@ -21,7 +16,6 @@
   <exec_depend>lightsfm</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>roscpp</exec_depend>
-
 
   <export>
     <gazebo_ros plugin_path="${prefix}/../../lib" gazebo_media_path="${prefix}" />
