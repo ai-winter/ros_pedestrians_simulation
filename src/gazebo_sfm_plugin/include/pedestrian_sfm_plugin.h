@@ -36,7 +36,6 @@ namespace gazebo
 {
 class GZ_PLUGIN_VISIBLE PedestrianSFMPlugin : public ModelPlugin
 {
-
 public:
   /**
    * @brief Construct a gazebo plugin
@@ -55,13 +54,12 @@ public:
    */
   virtual void Reset();
 
-
 private:
   /**
    * @brief Function that is called every update cycle.
    * @param _info Timing information.
    */
-  void OnUpdate(const common::UpdateInfo &_info);
+  void OnUpdate(const common::UpdateInfo& _info);
 
   /**
    * @brief Helper function to detect the closest obstacles.
@@ -72,7 +70,6 @@ private:
    * @brief Helper function to detect the nearby pedestrians (other actors).
    */
   void handlePedestrians();
-
 
 private:
   // Gazebo ROS node
@@ -106,5 +103,5 @@ private:
   // Custom trajectory info.
   physics::TrajectoryInfoPtr trajectory_info_;
 };
-}
+}  // namespace gazebo
 #endif

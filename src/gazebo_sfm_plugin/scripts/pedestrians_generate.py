@@ -1,7 +1,7 @@
 #!/usr/bin/python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
-''' 
+""" 
 ******************************************************************************************
 *  Copyright (C) 2023 Yang Haodong, All Rights Reserved                                  *
 *                                                                                        *
@@ -11,7 +11,7 @@
 *  @date     2023.03.15                                                                  *
 *  @license  GNU General Public License (GPL)                                            *
 ******************************************************************************************
-'''
+"""
 import yaml
 import xml.etree.ElementTree as ET
 import sys, os
@@ -22,19 +22,20 @@ class PedGenerator(object):
         # get the root path of package(src layer)
         self.root_path = os.path.split(os.path.realpath(__file__))[0] + "/../"
         # user configure
-        self.ped_cfg = PedGenerator.yamlParser(self.root_path + 'config/' + sys.argv[1])
+        self.ped_cfg = PedGenerator.yamlParser(self.root_path + "config/" + sys.argv[1])
 
     def writePedestrianWorld(self, path):
-        '''
+        """
         Create configure file to construct pedestrians environment.
 
         Parameters
         ----------
         path: str
             the path of file(.launch.xml) to write.
-        '''
+        """
+
         def createHuman(config, index):
-            '''
+            """
             Create human element of world file.
 
             Parameters
@@ -43,17 +44,18 @@ class PedGenerator(object):
                 configure data structure.
             index: int
                 human index
-            
+
             Return
             ----------
             human: ET.Element
                 human element ptr
-            '''
+            """
+
             def createCollision(name, scale, pose=None):
                 if pose:
-                    props = {"scale": " ".join('%s' %s for s in scale), "pose": " ".join('%s' %p for p in pose)}
+                    props = {"scale": " ".join("%s" % s for s in scale), "pose": " ".join("%s" % p for p in pose)}
                 else:
-                    props = {"scale": " ".join('%s' %s for s in scale)}
+                    props = {"scale": " ".join("%s" % s for s in scale)}
                 return PedGenerator.createElement("collision", text=name, props=props)
 
             # configure
@@ -77,8 +79,7 @@ class PedGenerator(object):
             animation.append(PedGenerator.createElement("interpolate_x", text="true"))
 
             # plugin
-            plugin = PedGenerator.createElement("plugin", props={"name": human["name"] + "_plugin", 
-                "filename": "libPedestrianSFMPlugin.so"})
+            plugin = PedGenerator.createElement("plugin", props={"name": human["name"] + "_plugin", "filename": "libPedestrianSFMPlugin.so"})
             plugin.append(createCollision("LHipJoint_LeftUpLeg_collision", [0.01, 0.001, 0.001]))
             plugin.append(createCollision("LeftUpLeg_LeftLeg_collision", [8.0, 8.0, 1.0]))
             plugin.append(createCollision("LeftLeg_LeftFoot_collision", [8.0, 8.0, 1.0]))
@@ -138,33 +139,32 @@ class PedGenerator(object):
         human_num = len(self.ped_cfg["pedestrians"])
         for i in range(human_num):
             world.append(createHuman(self.ped_cfg, i))
-        
-        with open(path, 'wb+') as f:
-            tree.write(f, encoding='utf-8', xml_declaration=True)
 
+        with open(path, "wb+") as f:
+            tree.write(f, encoding="utf-8", xml_declaration=True)
 
     @staticmethod
     def yamlParser(path: str) -> dict:
-        '''
+        """
         Parser user configure file(.yaml).
 
         Parameters
         ----------
         path: str
             the path of file(.yaml).
-        
+
         Return
         ----------
         data: dict
             user configuer tree
-        '''
-        with open(path, 'r') as f:
+        """
+        with open(path, "r") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         return data
 
     @staticmethod
-    def indent(elem: ET.Element, level: int=0) -> None:
-        '''
+    def indent(elem: ET.Element, level: int = 0) -> None:
+        """
         Format the generated xml document.
 
         Parameters
@@ -172,7 +172,7 @@ class PedGenerator(object):
         elem: ET.Element
         level: int
             indent level.
-        '''
+        """
         i = "\n" + level * "\t"
         if len(elem):
             if not elem.text or not elem.text.strip():
@@ -188,7 +188,7 @@ class PedGenerator(object):
                 elem.tail = i
 
     @staticmethod
-    def createElement(name: str, text: str=None, props: dict={}) -> ET.Element:
+    def createElement(name: str, text: str = None, props: dict = {}) -> ET.Element:
         e = ET.Element(name, attrib=props)
         if not text is None:
             e.text = text
@@ -196,4 +196,4 @@ class PedGenerator(object):
 
 
 ped_gen = PedGenerator()
-ped_gen.writePedestrianWorld(ped_gen.root_path + 'worlds/' + ped_gen.ped_cfg["world"] + "_with_pedestrians.world")
+ped_gen.writePedestrianWorld(ped_gen.root_path + "worlds/" + ped_gen.ped_cfg["world"] + "_with_pedestrians.world")

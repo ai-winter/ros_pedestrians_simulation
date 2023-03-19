@@ -22,18 +22,20 @@
 using namespace gazebo;
 GZ_REGISTER_MODEL_PLUGIN(PedestrianSFMPlugin)
 
-
 /**
  * @brief Construct a gazebo plugin
  */
-PedestrianSFMPlugin::PedestrianSFMPlugin() {}
+PedestrianSFMPlugin::PedestrianSFMPlugin()
+{
+}
 
 /**
  * @brief Load the actor plugin.
  * @param _model  Pointer to the parent model.
  * @param _sdf    Pointer to the plugin's SDF elements.
  */
-void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
+void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
+{
   // gazebo model pointer
   sdf_ = _sdf;
   actor_ = boost::dynamic_pointer_cast<physics::Actor>(_model);
@@ -43,7 +45,7 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
   if (!ros::isInitialized())
   {
     int argc = 0;
-    char **argv = NULL;
+    char** argv = NULL;
     ros::init(argc, argv, "gazebo_client", ros::init_options::NoSigintHandler);
   }
   node_.reset(new ros::NodeHandle("gazebo_client"));
@@ -76,16 +78,16 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
     }
   }
   // Configure the links
-  for (const auto &link : actor_->GetLinks())
+  for (const auto& link : actor_->GetLinks())
   {
     // Init the links, which in turn enables collisions
     link->Init();
 
     if (scales.empty())
       continue;
- 
+
     // Process all the collisions in all the links
-    for (const auto &collision : link->GetCollisions())
+    for (const auto& collision : link->GetCollisions())
     {
       auto name = collision->GetName();
       if (scales.find(name) != scales.end())
@@ -104,30 +106,30 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
   }
 
   // Bind the update callback function
-  connections_.push_back(event::Events::ConnectWorldUpdateBegin(
-      std::bind(&PedestrianSFMPlugin::OnUpdate, this, std::placeholders::_1)));
+  connections_.push_back(
+      event::Events::ConnectWorldUpdateBegin(std::bind(&PedestrianSFMPlugin::OnUpdate, this, std::placeholders::_1)));
 
   // Initialize the social force model.
   this->Reset();
 }
 
-
 /**
  * @brief Initialize the social force model.
  */
-void PedestrianSFMPlugin::Reset() {
+void PedestrianSFMPlugin::Reset()
+{
   last_update_ = 0;
   sfm_actor_.id = actor_->GetId();
 
   // Read in the goals to reach
-  if (sdf_->HasElement("cycle")) 
+  if (sdf_->HasElement("cycle"))
     sfm_actor_.cyclicGoals = sdf_->GetElement("cycle")->Get<bool>();
-  
-  if (sdf_->HasElement("trajectory")) 
+
+  if (sdf_->HasElement("trajectory"))
   {
-    sdf::ElementPtr model_elem =
-        sdf_->GetElement("trajectory")->GetElement("goalpoint");
-    while (model_elem) {
+    sdf::ElementPtr model_elem = sdf_->GetElement("trajectory")->GetElement("goalpoint");
+    while (model_elem)
+    {
       ignition::math::Pose3d g = model_elem->Get<ignition::math::Pose3d>();
       sfm::Goal goal;
       goal.center.set(g.X(), g.Y());
@@ -138,9 +140,12 @@ void PedestrianSFMPlugin::Reset() {
   }
 
   auto skel_anims = actor_->SkeletonAnimations();
-  if (skel_anims.find(WALKING_ANIMATION) == skel_anims.end()) {
+  if (skel_anims.find(WALKING_ANIMATION) == skel_anims.end())
+  {
     gzerr << "Skeleton animation " << WALKING_ANIMATION << " not found.\n";
-  } else {
+  }
+  else
+  {
     // Create custom trajectory
     trajectory_info_.reset(new physics::TrajectoryInfo());
     trajectory_info_->type = WALKING_ANIMATION;
@@ -191,21 +196,26 @@ void PedestrianSFMPlugin::Reset() {
     people_dist_ = 5.0;
 
   // Read in the pedestrians in your walking group
-  if (sdf_->HasElement("group")) {
+  if (sdf_->HasElement("group"))
+  {
     sfm_actor_.groupId = sfm_actor_.id;
     sdf::ElementPtr model_elem = sdf_->GetElement("group")->GetElement("model");
-    while (model_elem) {
+    while (model_elem)
+    {
       group_names_.push_back(model_elem->Get<std::string>());
       model_elem = model_elem->GetNextElement("model");
     }
     sfm_actor_.groupId = sfm_actor_.id;
-  } else
+  }
+  else
     sfm_actor_.groupId = -1;
 
   // Read in the other obstacles to ignore
-  if (sdf_->HasElement("ignore_obstacles")) {
+  if (sdf_->HasElement("ignore_obstacles"))
+  {
     sdf::ElementPtr model_elem = sdf_->GetElement("ignore_obstacles")->GetElement("model");
-    while (model_elem) {
+    while (model_elem)
+    {
       ignore_models_.push_back(model_elem->Get<std::string>());
       model_elem = model_elem->GetNextElement("model");
     }
@@ -214,7 +224,8 @@ void PedestrianSFMPlugin::Reset() {
   ignore_models_.push_back(actor_->GetName());
 
   // Add the other pedestrians to the ignored obstacles
-  for (unsigned int i = 0; i < world_->ModelCount(); ++i) {
+  for (unsigned int i = 0; i < world_->ModelCount(); ++i)
+  {
     physics::ModelPtr model = world_->ModelByIndex(i);
 
     if (model->GetId() != actor_->GetId() && ((int)model->GetType() == (int)actor_->GetType()))
@@ -225,12 +236,13 @@ void PedestrianSFMPlugin::Reset() {
 /**
  * @brief Helper function to detect the closest obstacles.
  */
-void PedestrianSFMPlugin::handleObstacles() {
+void PedestrianSFMPlugin::handleObstacles()
+{
   double min_dist = 10000.0;
   ignition::math::Vector3d closest_obs;
   sfm_actor_.obstacles1.clear();
 
-  for (unsigned int i = 0; i < world_->ModelCount(); ++i) 
+  for (unsigned int i = 0; i < world_->ModelCount(); ++i)
   {
     physics::ModelPtr model = world_->ModelByIndex(i);
     if (std::find(ignore_models_.begin(), ignore_models_.end(), model->GetName()) == ignore_models_.end())
@@ -243,7 +255,8 @@ void PedestrianSFMPlugin::handleObstacles() {
       ignition::math::Vector3d offset = std::get<2>(intersect) - actorPos;
       double model_dist = offset.Length();
 
-      if (model_dist < min_dist) {
+      if (model_dist < min_dist)
+      {
         min_dist = model_dist;
         closest_obs = std::get<2>(intersect);
       }
@@ -257,10 +270,11 @@ void PedestrianSFMPlugin::handleObstacles() {
 /**
  * @brief Helper function to detect the nearby pedestrians (other actors).
  */
-void PedestrianSFMPlugin::handlePedestrians() {
+void PedestrianSFMPlugin::handlePedestrians()
+{
   other_actors_.clear();
 
-  for (unsigned int i = 0; i < world_->ModelCount(); ++i) 
+  for (unsigned int i = 0; i < world_->ModelCount(); ++i)
   {
     physics::ModelPtr model = world_->ModelByIndex(i);
 
@@ -268,7 +282,7 @@ void PedestrianSFMPlugin::handlePedestrians() {
     {
       ignition::math::Pose3d model_pose = model->WorldPose();
       ignition::math::Vector3d pos = model_pose.Pos() - actor_->WorldPose().Pos();
-      if (pos.Length() < people_dist_) 
+      if (pos.Length() < people_dist_)
       {
         sfm::Agent ped;
         ped.id = model->GetId();
@@ -284,7 +298,8 @@ void PedestrianSFMPlugin::handlePedestrians() {
         ped.angularVelocity = angvel.Z();
 
         // check if the ped belongs to my group
-        if (sfm_actor_.groupId != -1) {
+        if (sfm_actor_.groupId != -1)
+        {
           std::vector<std::string>::iterator it;
           it = find(group_names_.begin(), group_names_.end(), model->GetName());
           if (it != group_names_.end())
@@ -302,7 +317,8 @@ void PedestrianSFMPlugin::handlePedestrians() {
  * @brief Function that is called every update cycle.
  * @param _info Timing information.
  */
-void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo &_info) {
+void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
+{
   // Time delta
   double dt = (_info.simTime - last_update_).Double();
 
@@ -318,15 +334,16 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo &_info) {
   // Update model
   sfm::SFM.updatePosition(sfm_actor_, dt);
 
- utils::Angle h = this->sfm_actor_.yaw;
+  utils::Angle h = this->sfm_actor_.yaw;
   utils::Angle add = utils::Angle::fromRadian(1.5707);
   h = h + add;
   double yaw = h.toRadian();
 
   ignition::math::Vector3d rpy = actor_pose.Rot().Euler();
   utils::Angle current = utils::Angle::fromRadian(rpy.Z());
-  double diff = (h- current).toRadian();
-  if (std::fabs(diff) > IGN_DTOR(10)) {
+  double diff = (h - current).toRadian();
+  if (std::fabs(diff) > IGN_DTOR(10))
+  {
     current = current + utils::Angle::fromRadian(diff * 0.005);
     yaw = current.toRadian();
   }
@@ -341,7 +358,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo &_info) {
 
   actor_->SetWorldPose(actor_pose);
   actor_->SetScriptTime(actor_->ScriptTime() + distance_traveled * animation_factor_);
-  
+
   geometry_msgs::PoseStamped current_pose;
   current_pose.header.frame_id = "map";
   current_pose.header.stamp = ros::Time::now();
