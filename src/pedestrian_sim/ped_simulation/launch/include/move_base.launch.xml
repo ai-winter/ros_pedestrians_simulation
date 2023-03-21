@@ -16,12 +16,12 @@
     <!-- move_base -->
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
         <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-        <rosparam file="$(find gazebo_sfm_plugin)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-        <rosparam file="$(find gazebo_sfm_plugin)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-        <rosparam file="$(find gazebo_sfm_plugin)/config/local_costmap_params.yaml" command="load" />
-        <rosparam file="$(find gazebo_sfm_plugin)/config/global_costmap_params.yaml" command="load" />
-        <rosparam file="$(find gazebo_sfm_plugin)/config/move_base_params.yaml" command="load" />
-        <rosparam file="$(find gazebo_sfm_plugin)/config/dwa_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find ped_simulation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find ped_simulation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find ped_simulation)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find ped_simulation)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find ped_simulation)/config/move_base_params.yaml" command="load" />
+        <rosparam file="$(find ped_simulation)/config/dwa_local_planner_params.yaml" command="load" />
 
         <remap from="map" to="/map"/>
         <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />

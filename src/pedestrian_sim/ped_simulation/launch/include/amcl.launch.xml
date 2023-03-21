@@ -18,7 +18,7 @@
 
     <node pkg="amcl" type="amcl" name="amcl">
         <!-- 加载初始化默认参数 -->
-        <rosparam file="$(find gazebo_sfm_plugin)/config/amcl_params.yaml" command="load" />
+        <rosparam file="$(find ped_simulation)/config/amcl_params.yaml" command="load" />
         <param name="initial_pose_x" value="$(arg robot_x)"/>
         <param name="initial_pose_y" value="$(arg robot_y)"/>
         <param name="initial_pose_z" value="$(arg robot_z)"/>
