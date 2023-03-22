@@ -3,8 +3,8 @@
  * @file: pedestrian_sfm_plugin.cpp
  * @breif: Gazebo plugin for pedestrians using social force model
  * @author: Yang Haodong
- * @update: 2023-03-15
- * @version: 1.1
+ * @update: 2023-03-22
+ * @version: 2.0
  *
  * Copyright (c) 2023， Yang Haodong
  * All rights reserved.
@@ -25,7 +25,7 @@ GZ_REGISTER_MODEL_PLUGIN(PedestrianSFMPlugin)
 /**
  * @brief Construct a gazebo plugin
  */
-PedestrianSFMPlugin::PedestrianSFMPlugin()
+PedestrianSFMPlugin::PedestrianSFMPlugin() : pose_init_(false)
 {
 }
 
@@ -141,7 +141,7 @@ void PedestrianSFMPlugin::Reset()
     {
       ignition::math::Pose3d g = model_elem->Get<ignition::math::Pose3d>();
       sfm::Goal goal;
-      goal.center.set(g.X(), g.Y());
+      goal.center.set(g.Pos().X(), g.Pos().Y());
       goal.radius = 0.3;
       sfm_actor_.goals.push_back(goal);
       model_elem = model_elem->GetNextElement("goalpoint");
@@ -218,7 +218,7 @@ void PedestrianSFMPlugin::Reset()
   }
   else
     sfm_actor_.groupId = -1;
-
+    
   // Read in the other obstacles to ignore
   if (sdf_->HasElement("ignore_obstacles"))
   {
@@ -415,7 +415,24 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
   q.setRPY(0, 0, sfm_actor_.yaw.toRadian());
   tf2::convert(q, current_pose.pose.orientation);
 
-  pose_pub_.publish(current_pose);
+  // set model velocity
+  if (!pose_init_)
+  {
+    pose_init_ = true;
+    last_pose_x_ = current_pose.pose.position.x;
+    last_pose_y_ = current_pose.pose.position.y;
+  }
+  else 
+  {
+    double dt = (_info.simTime - last_update_).Double();
+    double vx = (current_pose.pose.position.x - last_pose_x_) / dt;
+    double vy = (current_pose.pose.position.y - last_pose_y_) / dt;
+    last_pose_x_ = current_pose.pose.position.x;
+    last_pose_y_ = current_pose.pose.position.y;
+    ignition::math::Vector3d vel(vx, vy, 0);
+    actor_->SetLinearVel(vel);
+  }
 
+  pose_pub_.publish(current_pose);
   last_update_ = _info.simTime;
 }

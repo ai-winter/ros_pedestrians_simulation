@@ -79,6 +79,11 @@ class PedGenerator(object):
             animation.append(PedGenerator.createElement("interpolate_x", text="true"))
 
             # plugin
+            if not index:
+                plugin_visual = PedGenerator.createElement("plugin", props={"name": "pedestrian_visual", "filename": "libPedestrianVisualPlugin.so"})
+            else:
+                plugin_visual = None
+
             plugin = PedGenerator.createElement("plugin", props={"name": human["name"] + "_plugin", "filename": "libPedestrianSFMPlugin.so"})
             plugin.append(createCollision("LHipJoint_LeftUpLeg_collision", [0.01, 0.001, 0.001]))
             plugin.append(createCollision("LeftUpLeg_LeftLeg_collision", [8.0, 8.0, 1.0]))
@@ -128,6 +133,10 @@ class PedGenerator(object):
             actor.append(skin)
             actor.append(animation)
             actor.append(plugin)
+
+            if not plugin_visual is None:
+                actor.append(plugin_visual)
+            
             PedGenerator.indent(actor)
 
             return actor

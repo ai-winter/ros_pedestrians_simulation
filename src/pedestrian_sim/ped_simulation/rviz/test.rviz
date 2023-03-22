@@ -10,6 +10,7 @@ Panels:
         - /Map1
         - /LaserScan1
         - /TrackedPersons1
+        - /Pose1
       Splitter Ratio: 0.5
     Tree Height: 1520
   - Class: rviz/Selection
@@ -124,7 +125,7 @@ Visualization Manager:
       History as line:
         Line width: 0.05000000074505806
         Value: true
-      History size: 100
+      History size: 10
       Included person IDs: ""
       Min. history point distance: 0.4000000059604645
       Missed alpha: 0.5
@@ -148,12 +149,28 @@ Visualization Manager:
         Line width: 0.05000000074505806
         Scaling factor: 1
         Value: Person meshes
-      Topic: ""
+      Topic: /ped_visualization
       Unreliable: false
       Value: true
       Z offset:
         Use Z position from message: false
         Value: 0
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Queue Size: 10
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic: /human_2/pose
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -182,7 +199,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 29.8240966796875
+      Distance: 23.992624282836914
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -190,17 +207,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 6.881810665130615
-        Y: 2.0987846851348877
-        Z: -5.92411994934082
+        X: 3.9485878944396973
+        Y: -0.19128328561782837
+        Z: 0.7604130506515503
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5697963237762451
+      Pitch: 0.569796621799469
       Target Frame: <Fixed Frame>
-      Yaw: 1.5553972721099854
+      Yaw: 1.9253941774368286
     Saved: ~
 Window Geometry:
   Displays:

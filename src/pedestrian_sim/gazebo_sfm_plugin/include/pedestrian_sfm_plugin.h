@@ -89,6 +89,10 @@ private:
   std::vector<sfm::Agent> other_actors_;
   // Maximum distance to detect nearby pedestrians.
   double people_dist_;
+  // initialized
+  bool pose_init_;
+  // last pose
+  double last_pose_x_, last_pose_y_;
   // Pointer to the parent actor.
   physics::ActorPtr actor_;
   // Pointer to the world, for convenience.
