@@ -61,6 +61,10 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
   // topic publisher
   pose_pub_ = node_->advertise<geometry_msgs::PoseStamped>("/" + actor_->GetName() + "/pose", 10);
+  vel_pub_ = node_->advertise<geometry_msgs::Twist>("/" + actor_->GetName() + "/twist", 10);
+
+  // server
+  state_server_ = node_->advertiseService(actor_->GetName() + "_state", &PedestrianSFMPlugin::OnStateCallBack, this);
 
   // Collision attribute configuration of pedestrian links
   std::map<std::string, ignition::math::Vector3d> scales;
@@ -416,11 +420,14 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
   tf2::convert(q, current_pose.pose.orientation);
 
   // set model velocity
+  geometry_msgs::Twist current_vel;
   if (!pose_init_)
   {
     pose_init_ = true;
     last_pose_x_ = current_pose.pose.position.x;
     last_pose_y_ = current_pose.pose.position.y;
+    current_vel.linear.x = 0;
+    current_vel.linear.y = 0;
   }
   else 
   {
@@ -429,10 +436,37 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
     double vy = (current_pose.pose.position.y - last_pose_y_) / dt;
     last_pose_x_ = current_pose.pose.position.x;
     last_pose_y_ = current_pose.pose.position.y;
-    ignition::math::Vector3d vel(vx, vy, 0);
-    actor_->SetLinearVel(vel);
+
+    current_vel.linear.x = vx;
+    current_vel.linear.y = vy;
   }
 
   pose_pub_.publish(current_pose);
+  vel_pub_.publish(current_vel);
+
+  // update
+  px_ = current_pose.pose.position.x;
+  py_ = current_pose.pose.position.y;
+  pz_ = current_pose.pose.position.z;
+  vx_ = current_vel.linear.x;
+  vy_ = current_vel.linear.y;
+  theta_ = yaw;
   last_update_ = _info.simTime;
+}
+
+bool PedestrianSFMPlugin::OnStateCallBack(gazebo_sfm_plugin::ped_state::Request& req,
+  gazebo_sfm_plugin::ped_state::Response& resp)
+{
+  if (req.name == actor_->GetName())
+  {
+    resp.px = px_;
+    resp.py = py_;
+    resp.pz = pz_;
+    resp.vx = vx_;
+    resp.vy = vy_;
+    resp.theta = theta_;
+    return true;
+  }
+  else
+    return false;
 }

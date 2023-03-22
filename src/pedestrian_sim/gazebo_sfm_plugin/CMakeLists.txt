@@ -6,11 +6,20 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   gazebo_ros
   roscpp
+  message_generation
 )
 
 find_package(Boost REQUIRED COMPONENTS thread)
 find_package(gazebo REQUIRED)
 
+add_service_files(
+  FILES
+  ped_state.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+)
 
 include_directories(include)
 include_directories(SYSTEM

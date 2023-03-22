@@ -60,13 +60,10 @@ void PedestrianVisualPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf
 
   // topic publisher
 	ped_visual_pub_ = node_->advertise<pedsim_msgs::TrackedPersons>("/ped_visualization", 1);
-	states_client_ = node_->serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
 
   // Bind the update callback function
   connections_.push_back(
       event::Events::ConnectWorldUpdateBegin(std::bind(&PedestrianVisualPlugin::OnUpdate, this, std::placeholders::_1)));
-
-
 }
 
 /**
@@ -93,23 +90,24 @@ void PedestrianVisualPlugin::publishPedVisuals()
 			person.is_occluded = false;
 			person.detection_id = human_id;
 
-			gazebo_msgs::GetModelState model_state;
-			model_state.request.model_name = model->GetName();
-			model_state.request.relative_entity_name = "world";
-			states_client_.call(model_state);
+			ros::ServiceClient state_client = node_->serviceClient<gazebo_sfm_plugin::ped_state>
+				(model->GetName() + "_state");
+			gazebo_sfm_plugin::ped_state model_state;
+			model_state.request.name = model->GetName();
+			state_client.call(model_state);
 
-			ignition::math::Pose3d pose = model->WorldPose();
-			ignition::math::Vector3d rpy = pose.Rot().Euler();
-			const double theta = rpy.Z();
 			geometry_msgs::PoseWithCovariance pose_with_cov;
-			pose_with_cov.pose = model_state.response.pose;
+			pose_with_cov.pose.position.x = model_state.response.px;
+			pose_with_cov.pose.position.y = model_state.response.py;
+			pose_with_cov.pose.position.z = model_state.response.pz;
 			tf2::Quaternion q;
-			q.setRPY(0, 0, theta - 1.57);
+			q.setRPY(0, 0, model_state.response.theta - 1.57);
 			tf2::convert(q, pose_with_cov.pose.orientation);
 			person.pose = pose_with_cov;
 
 			geometry_msgs::TwistWithCovariance twist_with_cov;
-			twist_with_cov.twist = model_state.response.twist;
+			twist_with_cov.twist.linear.x = model_state.response.vx;
+			twist_with_cov.twist.linear.y = model_state.response.vy;
 			person.twist = twist_with_cov;
 
     	tracked_people.tracks.push_back(person);

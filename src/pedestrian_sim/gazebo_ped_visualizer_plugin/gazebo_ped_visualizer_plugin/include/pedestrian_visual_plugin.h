@@ -35,6 +35,7 @@
 #include <visualization_msgs/MarkerArray.h>
 #include <pedsim_msgs/TrackedPersons.h>
 #include <pedsim_msgs/TrackedPerson.h>
+#include <gazebo_sfm_plugin/ped_state.h>
 
 
 namespace gazebo
@@ -77,8 +78,6 @@ namespace gazebo
     std::unique_ptr<ros::NodeHandle> node_;
     // topic publisher
     ros::Publisher ped_visual_pub_;
-    ros::ServiceClient states_client_;
-
     // Pointer to the parent actor.
     physics::ActorPtr actor_;
     // Pointer to the world, for convenience.
