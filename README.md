@@ -30,6 +30,7 @@ Below is the example of `pedestrians_config.yaml`
 
 ```yaml
 world: test_scene
+update_rate: 5
 
 # sfm algorithm configure
 social_force:
@@ -72,6 +73,7 @@ pedestrians:
 Explanation:
 
 - `world`: Gazebo world，located in `src/worlds/`.
+- `update_rate`: Update rate of pedestrains presentation. The higher `update_rate`, the more sluggish the environment becomes.
 - `social_force`: The weight factors that modify the navigation behavior. See the [Social Force Model](https://github.com/robotics-upo/lightsfm) for further information.
 - `pedestrians`: Pedestrians configuration.
   - `name`: The id for each human.
