@@ -86,6 +86,10 @@ namespace gazebo
     sdf::ElementPtr sdf_;
     // List of connections
     std::vector<event::ConnectionPtr> connections_;
+    // Update interval
+    size_t update_interval_;
+    // Update counter
+    size_t update_cnt_;
 
   };
 }  // namespace gazebo

@@ -61,6 +61,7 @@ class PedGenerator(object):
             # configure
             sfm = config["social_force"]
             human = config["pedestrians"][index]
+            upd_rate = config["update_rate"]
 
             # root: actor
             actor = PedGenerator.createElement("actor", props={"name": human["name"]})
@@ -81,6 +82,7 @@ class PedGenerator(object):
             # plugin
             if not index:
                 plugin_visual = PedGenerator.createElement("plugin", props={"name": "pedestrian_visual", "filename": "libPedestrianVisualPlugin.so"})
+                plugin_visual.append(PedGenerator.createElement("update_rate", text=str(upd_rate)))
             else:
                 plugin_visual = None
 

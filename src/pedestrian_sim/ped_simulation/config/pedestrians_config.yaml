@@ -1,4 +1,5 @@
 world: test_scene
+update_rate: 5
 
 # sfm algorithm configure
 social_force:
