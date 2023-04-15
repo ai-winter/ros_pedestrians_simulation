@@ -37,7 +37,6 @@ PedestrianSFMPlugin::~PedestrianSFMPlugin()
   pose_pub_.shutdown();
 }
 
-
 /**
  * @brief Load the actor plugin.
  * @param _model  Pointer to the parent model.
@@ -76,7 +75,8 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     auto elem = sdf_->GetElement("collision");
     while (elem)
     {
-      auto name = elem->Get<std::string>("collision");
+      auto name = elem->Get<std::string>();
+
       if (elem->HasAttribute("scale"))
       {
         auto scale = elem->Get<ignition::math::Vector3d>("scale");
@@ -103,6 +103,7 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     for (const auto& collision : link->GetCollisions())
     {
       auto name = collision->GetName();
+      // std::cout<<scales[name]<<std::endl;
       if (scales.find(name) != scales.end())
       {
         auto boxShape = boost::dynamic_pointer_cast<gazebo::physics::BoxShape>(collision->GetShape());
@@ -131,7 +132,6 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
  */
 void PedestrianSFMPlugin::Reset()
 {
-  last_update_ = 0;
   sfm_actor_.id = actor_->GetId();
 
   // Read in the goals to reach
@@ -168,6 +168,7 @@ void PedestrianSFMPlugin::Reset()
 
   // Initialize sfm actor position
   ignition::math::Vector3d pos = actor_->WorldPose().Pos();
+
   ignition::math::Vector3d rpy = actor_->WorldPose().Rot().Euler();
   sfm_actor_.position.set(pos.X(), pos.Y());
   sfm_actor_.yaw = utils::Angle::fromRadian(rpy.Z());
@@ -222,7 +223,7 @@ void PedestrianSFMPlugin::Reset()
   }
   else
     sfm_actor_.groupId = -1;
-    
+
   // Read in the other obstacles to ignore
   if (sdf_->HasElement("ignore_obstacles"))
   {
@@ -260,31 +261,10 @@ void PedestrianSFMPlugin::handleObstacles()
     physics::ModelPtr model = world_->ModelByIndex(i);
     if (std::find(ignore_models_.begin(), ignore_models_.end(), model->GetName()) == ignore_models_.end())
     {
-      // ignition::math::Vector3d actorPos = actor_->WorldPose().Pos();
-      // ignition::math::Vector3d modelPos = model->WorldPose().Pos();
-      // // ROS_WARN("model: %s, x: %.2f, y: %.2f, z: %.2f", model->GetName().c_str(), modelPos.X(), modelPos.Y(),
-      // //          modelPos.Z());
-      // // ROS_WARN("model: %s, length: %.2f, width: %.2f, height: %.2f", model->GetName().c_str(),
-      // //          model->BoundingBox().Size().X(), model->BoundingBox().Size().Y(), model->BoundingBox().Size().Z());
-
-      // std::tuple<bool, double, ignition::math::Vector3d> intersect =
-      //     model->BoundingBox().Intersect(modelPos, actorPos, 0.05, 8.0);
-
-      // ignition::math::Vector3d offset = std::get<2>(intersect) - actorPos;
-      // double model_dist = offset.Length();
-
-      // if (model_dist < min_dist)
-      // {
-      //   min_dist = model_dist;
-      //   closest_obs = std::get<2>(intersect);
-      // }
-
       // simple method, suppose BBs are AABBs
       ignition::math::Vector3d actorPos = actor_->WorldPose().Pos();
       ignition::math::Vector3d modelPos = model->WorldPose().Pos();
-      // std::tuple<bool, double, ignition::math::Vector3d> intersect =
-      //     model->BoundingBox().Intersect(modelPos, actorPos, 0.05, 8.0);
-      // ignition::math::Vector3d interPos = std::get<2>(intersect);
+
 
       // BB border
       double max_x = model->BoundingBox().Max().X();
@@ -369,6 +349,9 @@ void PedestrianSFMPlugin::handlePedestrians()
  */
 void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
 {
+  if (!pose_init_)
+    last_update_ = _info.simTime;
+
   // Time delta
   double dt = (_info.simTime - last_update_).Double();
 
@@ -429,7 +412,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
     current_vel.linear.x = 0;
     current_vel.linear.y = 0;
   }
-  else 
+  else
   {
     double dt = (_info.simTime - last_update_).Double();
     double vx = (current_pose.pose.position.x - last_pose_x_) / dt;
@@ -455,7 +438,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
 }
 
 bool PedestrianSFMPlugin::OnStateCallBack(gazebo_sfm_plugin::ped_state::Request& req,
-  gazebo_sfm_plugin::ped_state::Response& resp)
+                                          gazebo_sfm_plugin::ped_state::Response& resp)
 {
   if (req.name == actor_->GetName())
   {

@@ -17,7 +17,7 @@ social_force:
 # pedestrians setting
 pedestrians:
   - name: human_1
-    pose: 3 -5 1 0 0 0
+    pose: 5 0 1 0 0 0
     velocity: 0.9
     radius: 0.4
     cycle: true
@@ -25,16 +25,16 @@ pedestrians:
       model_1: ground_plane
       model_2: turtlebot3_waffle
     trajectory:
-      goal_point_1: 3 -5 1 0 0 0
-      goal_point_2: 3 -8 1 0 0 0
-  - name: human_2
-    pose: 3 -8 1 0 0 0
-    velocity: 1.2
-    radius: 0.4
-    cycle: true
-    ignore:
-      model_1: ground_plane
-      model_2: turtlebot3_waffle
-    trajectory:
-      goal_point_1: 3 -8 1 0 0 0
-      goal_point_2: 3 10 1 0 0 0
+      goal_point_1: 5 0 1 0 0 0
+      goal_point_2: 5 2 1 0 0 0
+  # - name: human_2
+  #   pose: 6 -3 1 0 0 0
+  #   velocity: 1.2
+  #   radius: 0.4
+  #   cycle: true
+  #   ignore:
+  #     model_1: ground_plane
+  #     model_2: turtlebot3_waffle
+  #   trajectory:
+  #     goal_point_1: 6 -3 1 0 0 0
+  #     goal_point_2: 6 4 1 0 0 0

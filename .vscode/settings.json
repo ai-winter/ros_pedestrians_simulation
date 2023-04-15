@@ -92,6 +92,10 @@
         "__tuple": "cpp",
         "ios": "cpp",
         "locale": "cpp",
-        "queue": "cpp"
-    }
+        "queue": "cpp",
+        "*.ipp": "cpp",
+        "codecvt": "cpp",
+        "future": "cpp"
+    },
+    "python.pythonPath": "/home/winter/Project/anaconda3/envs/pytorch/bin/python"
 }
