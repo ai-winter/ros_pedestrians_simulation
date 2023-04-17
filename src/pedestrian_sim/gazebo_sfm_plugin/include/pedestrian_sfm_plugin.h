@@ -104,7 +104,6 @@ private:
   // current state
   double px_, py_, pz_, vx_, vy_, theta_;
 
-
   // Pointer to the parent actor.
   physics::ActorPtr actor_;
   // Pointer to the world, for convenience.

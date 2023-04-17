@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(gazebo_sfm_plugin)
-
 add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
@@ -23,7 +22,6 @@ generate_messages(
 
 include_directories(include)
 include_directories(SYSTEM
-  /usr/local/include  #to find lightsfm
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ${GAZEBO_INCLUDE_DIRS}
@@ -34,18 +32,15 @@ link_directories(
   ${GAZEBO_LIBRARY_DIRS}
 )
 
-
-
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES PedestrianSFMPlugin
   CATKIN_DEPENDS gazebo_ros roscpp
 )
 
-
 add_library(PedestrianSFMPlugin src/pedestrian_sfm_plugin.cpp)
 add_dependencies(PedestrianSFMPlugin gazebo_sfm_plugin_generate_messages_cpp)
-target_link_libraries(PedestrianSFMPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES}) #${Boost_LIBRARIES
+target_link_libraries(PedestrianSFMPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
 install(TARGETS
   PedestrianSFMPlugin

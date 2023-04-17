@@ -444,7 +444,7 @@
 		<scale>1.0</scale>
 		<interpolate_x>true</interpolate_x>
 	</animation>
-	<plugin filename="libPedestrianSFMPlugin.so" name="human_1_plugin">
+	<plugin name="human_1_plugin" filename="libPedestrianSFMPlugin.so">
 		<collision scale="0.01 0.001 0.001">LHipJoint_LeftUpLeg_collision</collision>
 		<collision scale="8.0 8.0 1.0">LeftUpLeg_LeftLeg_collision</collision>
 		<collision scale="10.0 10.0 1.5">LeftLeg_LeftFoot_collision</collision>
@@ -464,7 +464,7 @@
 		<collision scale="5.0 5.0 1.0">RightArm_RightForeArm_collision</collision>
 		<collision scale="5.0 5.0 1.0">RightForeArm_RightHand_collision</collision>
 		<collision scale="4.0 4.0 3.0">RightFingerBase_RightHandIndex1_collision</collision>
-		<collision pose="0.05 0 0 0 -0.2 0" scale="12.0 20.0 5.0">LowerBack_Spine_collision</collision>
+		<collision scale="12.0 20.0 5.0" pose="0.05 0 0 0 -0.2 0">LowerBack_Spine_collision</collision>
 		<velocity>0.9</velocity>
 		<radius>0.4</radius>
 		<cycle>True</cycle>
@@ -482,10 +482,10 @@
 		</ignore_obstacles>
 		<trajectory>
 			<goalpoint>5 0 1 0 0 0</goalpoint>
-			<goalpoint>5 2 1 0 0 0</goalpoint>
+			<goalpoint>5 5 1 0 0 0</goalpoint>
 		</trajectory>
 	</plugin>
-	<plugin filename="libPedestrianVisualPlugin.so" name="pedestrian_visual">
+	<plugin name="pedestrian_visual" filename="libPedestrianVisualPlugin.so">
 		<update_rate>5</update_rate>
 	</plugin>
 </actor>

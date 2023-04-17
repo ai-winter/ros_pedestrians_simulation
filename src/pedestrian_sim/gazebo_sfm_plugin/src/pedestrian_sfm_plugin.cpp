@@ -120,8 +120,7 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   }
 
   // Bind the update callback function
-  connections_.push_back(
-      event::Events::ConnectWorldUpdateBegin(std::bind(&PedestrianSFMPlugin::OnUpdate, this, std::placeholders::_1)));
+  connections_.push_back(event::Events::ConnectWorldUpdateBegin(std::bind(&PedestrianSFMPlugin::OnUpdate, this, std::placeholders::_1)));
 
   // Initialize the social force model.
   this->Reset();
@@ -265,7 +264,6 @@ void PedestrianSFMPlugin::handleObstacles()
       ignition::math::Vector3d actorPos = actor_->WorldPose().Pos();
       ignition::math::Vector3d modelPos = model->WorldPose().Pos();
 
-
       // BB border
       double max_x = model->BoundingBox().Max().X();
       double min_x = model->BoundingBox().Min().X();
@@ -276,12 +274,9 @@ void PedestrianSFMPlugin::handleObstacles()
 
       ignition::math::Vector3d closest_point;
       double closest_weight = 0.8;
-      closest_point.X() =
-          ignition::math::clamp(closest_weight * actorPos.X() + (1 - closest_weight) * modelPos.X(), min_x, max_x);
-      closest_point.Y() =
-          ignition::math::clamp(closest_weight * actorPos.Y() + (1 - closest_weight) * modelPos.Y(), min_y, max_y);
-      closest_point.Z() =
-          ignition::math::clamp(closest_weight * actorPos.Z() + (1 - closest_weight) * modelPos.Z(), min_z, max_z);
+      closest_point.X() = ignition::math::clamp(closest_weight * actorPos.X() + (1 - closest_weight) * modelPos.X(), min_x, max_x);
+      closest_point.Y() = ignition::math::clamp(closest_weight * actorPos.Y() + (1 - closest_weight) * modelPos.Y(), min_y, max_y);
+      closest_point.Z() = ignition::math::clamp(closest_weight * actorPos.Z() + (1 - closest_weight) * modelPos.Z(), min_z, max_z);
       ignition::math::Vector3d offset = closest_point - actorPos;
       double model_dist = offset.Length();
       if (model_dist < min_dist)
@@ -437,8 +432,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
   last_update_ = _info.simTime;
 }
 
-bool PedestrianSFMPlugin::OnStateCallBack(gazebo_sfm_plugin::ped_state::Request& req,
-                                          gazebo_sfm_plugin::ped_state::Response& resp)
+bool PedestrianSFMPlugin::OnStateCallBack(gazebo_sfm_plugin::ped_state::Request& req, gazebo_sfm_plugin::ped_state::Response& resp)
 {
   if (req.name == actor_->GetName())
   {

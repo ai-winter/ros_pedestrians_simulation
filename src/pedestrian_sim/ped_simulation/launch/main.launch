@@ -1,5 +1,6 @@
 <launch>
-  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <!-- <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/> -->
+  <arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]"/>
   <arg name="map" default="test_scene" doc="map type [warehouse, workshop, turtlebot3_house, ...]" />
 
   <!-- initial pose -->
@@ -9,7 +10,7 @@
   <arg name="yaw" default="0"/>
 
   <!-- description -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find ped_simulation)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
 
   <!-- start map-server and publish user map -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(find ped_simulation)/maps/$(arg map).yaml"/>
@@ -18,7 +19,8 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find ped_simulation)/worlds/test_scene_with_pedestrians.world"/>
+    <!-- <arg name="world_name" value="$(find ped_simulation)/worlds/test_scene_with_pedestrians.world"/> -->
+    <arg name="world_name" value="$(find ped_simulation)/worlds/gap_with_pedestrians.world"/>
   </include>
 
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
