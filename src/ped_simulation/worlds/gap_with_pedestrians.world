@@ -1,6 +1,7 @@
-<sdf version='1.7'>
-  <world name='default'>
-    <light name='sun' type='directional'>
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.7">
+  <world name="default">
+    <light name="sun" type="directional">
       <cast_shadows>1</cast_shadows>
       <pose>0 0 10 0 -0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
@@ -18,10 +19,10 @@
         <falloff>0</falloff>
       </spot>
     </light>
-    <model name='ground_plane'>
+    <model name="ground_plane">
       <static>1</static>
-      <link name='link'>
-        <collision name='collision'>
+      <link name="link">
+        <collision name="collision">
           <geometry>
             <plane>
               <normal>0 0 1</normal>
@@ -31,7 +32,7 @@
           <surface>
             <contact>
               <collide_bitmask>65535</collide_bitmask>
-              <ode/>
+              <ode />
             </contact>
             <friction>
               <ode>
@@ -39,14 +40,14 @@
                 <mu2>50</mu2>
               </ode>
               <torsional>
-                <ode/>
+                <ode />
               </torsional>
             </friction>
-            <bounce/>
+            <bounce />
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <visual name='visual'>
+        <visual name="visual">
           <cast_shadows>0</cast_shadows>
           <geometry>
             <plane>
@@ -68,8 +69,8 @@
     </model>
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
-    <atmosphere type='adiabatic'/>
-    <physics type='ode'>
+    <atmosphere type="adiabatic" />
+    <physics type="ode">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
       <real_time_update_rate>1000</real_time_update_rate>
@@ -79,7 +80,7 @@
       <background>0.7 0.7 0.7 1</background>
       <shadows>1</shadows>
     </scene>
-    <wind/>
+    <wind />
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
       <latitude_deg>0</latitude_deg>
@@ -87,114 +88,114 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-    <state world_name='default'>
+    <state world_name="default">
       <sim_time>0 0</sim_time>
       <real_time>0 0</real_time>
       <wall_time>1681794235 89844363</wall_time>
       <iterations>0</iterations>
-      <model name='ground_plane'>
+      <model name="ground_plane">
         <pose>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
-        <link name='link'>
+        <link name="link">
           <pose>0 0 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_1'>
+      <model name="wall_1">
         <pose>0 2.5 0 0 -0 0</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>0 2.5 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_1_clone'>
+      <model name="wall_1_clone">
         <pose>0 -2.5 0 0 -0 0</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>0 -2.5 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_2'>
+      <model name="wall_2">
         <pose>0 -1.5 0 0 -0 1.57</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>0 -1.5 0 0 -0 1.57</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_2_clone'>
+      <model name="wall_2_clone">
         <pose>-3 1.5 0 0 -0 1.57</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>-3 1.5 0 0 -0 1.57</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_2_clone_clone'>
+      <model name="wall_2_clone_clone">
         <pose>3 1.5 0 0 -0 1.57</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>3 1.5 0 0 -0 1.57</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_3'>
+      <model name="wall_3">
         <pose>-3 -2 0 0 -0 1.57</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>-3 -2 0 0 -0 1.57</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_3_clone'>
+      <model name="wall_3_clone">
         <pose>0 2 0 0 -0 1.57</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>0 2 0 0 -0 1.57</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_3_clone_clone'>
+      <model name="wall_3_clone_clone">
         <pose>3 -2 0 0 -0 1.57</pose>
         <scale>1 1 1</scale>
-        <link name='Wall_2'>
+        <link name="Wall_2">
           <pose>3 -2 0 0 -0 1.57</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <light name='sun'>
+      <light name="sun">
         <pose>0 0 10 0 -0 0</pose>
       </light>
     </state>
-    <gui fullscreen='0'>
-      <camera name='user_camera'>
+    <gui fullscreen="0">
+      <camera name="user_camera">
         <pose>-13.0821 -8.92967 15.6534 0 0.785796 0.680412</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
-    <model name='wall_1'>
-      <link name='Wall_2'>
+    <model name="wall_1">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -212,7 +213,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -225,7 +226,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -238,7 +239,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -298,8 +299,8 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>0.659345 -6.06183 0 0 -0 0</pose>
     </model>
-    <model name='wall_1_clone'>
-      <link name='Wall_2'>
+    <model name="wall_1_clone">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -317,7 +318,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -330,7 +331,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -343,7 +344,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -403,8 +404,8 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>0.022969 -2.29501 0 0 -0 0</pose>
     </model>
-    <model name='wall_2'>
-      <link name='Wall_2'>
+    <model name="wall_2">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -422,7 +423,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -435,7 +436,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -448,7 +449,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -508,8 +509,8 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>0.227384 -3.20702 0 0 -0 0</pose>
     </model>
-    <model name='wall_2_clone'>
-      <link name='Wall_2'>
+    <model name="wall_2_clone">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -527,7 +528,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -540,7 +541,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -553,7 +554,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -613,8 +614,8 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>-1.98791 0.724579 0 0 -0 1.57</pose>
     </model>
-    <model name='wall_3'>
-      <link name='Wall_2'>
+    <model name="wall_3">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -632,7 +633,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -645,7 +646,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -658,7 +659,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -718,8 +719,8 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>-3.08533 -0.824502 0 0 -0 1.57</pose>
     </model>
-    <model name='wall_3_clone'>
-      <link name='Wall_2'>
+    <model name="wall_3_clone">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -737,7 +738,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -750,7 +751,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -763,7 +764,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -823,8 +824,8 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>0.733813 0.947904 0 0 -0 1.57</pose>
     </model>
-    <model name='wall_3_clone_clone'>
-      <link name='Wall_2'>
+    <model name="wall_3_clone_clone">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -842,7 +843,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -855,7 +856,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -868,7 +869,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -928,8 +929,8 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>2.82967 -1.84787 0 0 -0 1.57</pose>
     </model>
-    <model name='wall_2_clone_clone'>
-      <link name='Wall_2'>
+    <model name="wall_2_clone_clone">
+      <link name="Wall_2">
         <pose>0 0 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
@@ -947,7 +948,7 @@
             <izz>1</izz>
           </inertia>
         </inertial>
-        <visual name='Wall_2_Visual'>
+        <visual name="Wall_2_Visual">
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
@@ -960,7 +961,7 @@
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
-            <shader type='pixel'>
+            <shader type="pixel">
               <normal_map>__default__</normal_map>
             </shader>
             <diffuse>0.7 0.7 0.7 1</diffuse>
@@ -973,7 +974,7 @@
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
         </visual>
-        <collision name='Wall_2_Collision'>
+        <collision name="Wall_2_Collision">
           <laser_retro>0</laser_retro>
           <max_contacts>10</max_contacts>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -1033,5 +1034,320 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>2.86688 1.57495 0 0 -0 1.57</pose>
     </model>
+    <actor name="human_1">
+      <pose>6 -1 1 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="human_1_plugin" filename="libPedestrianSFMPlugin.so">
+        <collision scale="0.01 0.001 0.001">LHipJoint_LeftUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">LeftUpLeg_LeftLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">LeftLeg_LeftFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">LeftFoot_LeftToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">RHipJoint_RightUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">RightUpLeg_RightLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">RightLeg_RightFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">RightFoot_RightToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">Spine_Spine1_collision</collision>
+        <collision scale="0.01 0.001 0.001">Neck_Neck1_collision</collision>
+        <collision scale="5.0 5.0 3.0">Neck1_Head_collision</collision>
+        <collision scale="0.01 0.001 0.001">LeftShoulder_LeftArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftArm_LeftForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftForeArm_LeftHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">LeftFingerBase_LeftHandIndex1_collision</collision>
+        <collision scale="0.01 0.001 0.001">RightShoulder_RightArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightArm_RightForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightForeArm_RightHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">RightFingerBase_RightHandIndex1_collision</collision>
+        <collision scale="12.0 20.0 5.0" pose="0.05 0 0 0 -0.2 0">LowerBack_Spine_collision</collision>
+        <velocity>0.9</velocity>
+        <radius>0.4</radius>
+        <cycle>True</cycle>
+        <animation_factor>5.1</animation_factor>
+        <people_distance>6.0</people_distance>
+        <goal_weight>2.0</goal_weight>
+        <obstacle_weight>10.0</obstacle_weight>
+        <social_weight>15</social_weight>
+        <group_gaze_weight>3.0</group_gaze_weight>
+        <group_coh_weight>2.0</group_coh_weight>
+        <group_rep_weight>1.0</group_rep_weight>
+        <ignore_obstacles>
+          <model>ground_plane</model>
+        </ignore_obstacles>
+        <trajectory>
+          <goalpoint>6 -1 1 0 0 0</goalpoint>
+          <goalpoint>-6 1 1 0 0 0</goalpoint>
+        </trajectory>
+      </plugin>
+      <plugin name="pedestrian_visual" filename="libPedestrianVisualPlugin.so">
+        <update_rate>5</update_rate>
+      </plugin>
+    </actor>
+    <actor name="human_2">
+      <pose>6 0 1 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="human_2_plugin" filename="libPedestrianSFMPlugin.so">
+        <collision scale="0.01 0.001 0.001">LHipJoint_LeftUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">LeftUpLeg_LeftLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">LeftLeg_LeftFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">LeftFoot_LeftToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">RHipJoint_RightUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">RightUpLeg_RightLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">RightLeg_RightFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">RightFoot_RightToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">Spine_Spine1_collision</collision>
+        <collision scale="0.01 0.001 0.001">Neck_Neck1_collision</collision>
+        <collision scale="5.0 5.0 3.0">Neck1_Head_collision</collision>
+        <collision scale="0.01 0.001 0.001">LeftShoulder_LeftArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftArm_LeftForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftForeArm_LeftHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">LeftFingerBase_LeftHandIndex1_collision</collision>
+        <collision scale="0.01 0.001 0.001">RightShoulder_RightArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightArm_RightForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightForeArm_RightHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">RightFingerBase_RightHandIndex1_collision</collision>
+        <collision scale="12.0 20.0 5.0" pose="0.05 0 0 0 -0.2 0">LowerBack_Spine_collision</collision>
+        <velocity>0.9</velocity>
+        <radius>0.4</radius>
+        <cycle>True</cycle>
+        <animation_factor>5.1</animation_factor>
+        <people_distance>6.0</people_distance>
+        <goal_weight>2.0</goal_weight>
+        <obstacle_weight>10.0</obstacle_weight>
+        <social_weight>15</social_weight>
+        <group_gaze_weight>3.0</group_gaze_weight>
+        <group_coh_weight>2.0</group_coh_weight>
+        <group_rep_weight>1.0</group_rep_weight>
+        <ignore_obstacles>
+          <model>ground_plane</model>
+        </ignore_obstacles>
+        <trajectory>
+          <goalpoint>6 0 1 0 0 0</goalpoint>
+          <goalpoint>-6 0 1 0 0 0</goalpoint>
+        </trajectory>
+      </plugin>
+    </actor>
+    <actor name="human_3">
+      <pose>6 1 1 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="human_3_plugin" filename="libPedestrianSFMPlugin.so">
+        <collision scale="0.01 0.001 0.001">LHipJoint_LeftUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">LeftUpLeg_LeftLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">LeftLeg_LeftFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">LeftFoot_LeftToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">RHipJoint_RightUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">RightUpLeg_RightLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">RightLeg_RightFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">RightFoot_RightToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">Spine_Spine1_collision</collision>
+        <collision scale="0.01 0.001 0.001">Neck_Neck1_collision</collision>
+        <collision scale="5.0 5.0 3.0">Neck1_Head_collision</collision>
+        <collision scale="0.01 0.001 0.001">LeftShoulder_LeftArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftArm_LeftForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftForeArm_LeftHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">LeftFingerBase_LeftHandIndex1_collision</collision>
+        <collision scale="0.01 0.001 0.001">RightShoulder_RightArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightArm_RightForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightForeArm_RightHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">RightFingerBase_RightHandIndex1_collision</collision>
+        <collision scale="12.0 20.0 5.0" pose="0.05 0 0 0 -0.2 0">LowerBack_Spine_collision</collision>
+        <velocity>0.9</velocity>
+        <radius>0.4</radius>
+        <cycle>True</cycle>
+        <animation_factor>5.1</animation_factor>
+        <people_distance>6.0</people_distance>
+        <goal_weight>2.0</goal_weight>
+        <obstacle_weight>10.0</obstacle_weight>
+        <social_weight>15</social_weight>
+        <group_gaze_weight>3.0</group_gaze_weight>
+        <group_coh_weight>2.0</group_coh_weight>
+        <group_rep_weight>1.0</group_rep_weight>
+        <ignore_obstacles>
+          <model>ground_plane</model>
+        </ignore_obstacles>
+        <trajectory>
+          <goalpoint>6 1 1 0 0 0</goalpoint>
+          <goalpoint>-6 -1 1 0 0 0</goalpoint>
+        </trajectory>
+      </plugin>
+    </actor>
+    <actor name="human_4">
+      <pose>-6 -1 1 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="human_4_plugin" filename="libPedestrianSFMPlugin.so">
+        <collision scale="0.01 0.001 0.001">LHipJoint_LeftUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">LeftUpLeg_LeftLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">LeftLeg_LeftFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">LeftFoot_LeftToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">RHipJoint_RightUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">RightUpLeg_RightLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">RightLeg_RightFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">RightFoot_RightToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">Spine_Spine1_collision</collision>
+        <collision scale="0.01 0.001 0.001">Neck_Neck1_collision</collision>
+        <collision scale="5.0 5.0 3.0">Neck1_Head_collision</collision>
+        <collision scale="0.01 0.001 0.001">LeftShoulder_LeftArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftArm_LeftForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftForeArm_LeftHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">LeftFingerBase_LeftHandIndex1_collision</collision>
+        <collision scale="0.01 0.001 0.001">RightShoulder_RightArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightArm_RightForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightForeArm_RightHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">RightFingerBase_RightHandIndex1_collision</collision>
+        <collision scale="12.0 20.0 5.0" pose="0.05 0 0 0 -0.2 0">LowerBack_Spine_collision</collision>
+        <velocity>0.9</velocity>
+        <radius>0.4</radius>
+        <cycle>True</cycle>
+        <animation_factor>5.1</animation_factor>
+        <people_distance>6.0</people_distance>
+        <goal_weight>2.0</goal_weight>
+        <obstacle_weight>10.0</obstacle_weight>
+        <social_weight>15</social_weight>
+        <group_gaze_weight>3.0</group_gaze_weight>
+        <group_coh_weight>2.0</group_coh_weight>
+        <group_rep_weight>1.0</group_rep_weight>
+        <ignore_obstacles>
+          <model>ground_plane</model>
+        </ignore_obstacles>
+        <trajectory>
+          <goalpoint>-6 -1 1 0 0 0</goalpoint>
+          <goalpoint>6 1 1 0 0 0</goalpoint>
+        </trajectory>
+      </plugin>
+    </actor>
+    <actor name="human_5">
+      <pose>-6 0 1 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="human_5_plugin" filename="libPedestrianSFMPlugin.so">
+        <collision scale="0.01 0.001 0.001">LHipJoint_LeftUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">LeftUpLeg_LeftLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">LeftLeg_LeftFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">LeftFoot_LeftToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">RHipJoint_RightUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">RightUpLeg_RightLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">RightLeg_RightFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">RightFoot_RightToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">Spine_Spine1_collision</collision>
+        <collision scale="0.01 0.001 0.001">Neck_Neck1_collision</collision>
+        <collision scale="5.0 5.0 3.0">Neck1_Head_collision</collision>
+        <collision scale="0.01 0.001 0.001">LeftShoulder_LeftArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftArm_LeftForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftForeArm_LeftHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">LeftFingerBase_LeftHandIndex1_collision</collision>
+        <collision scale="0.01 0.001 0.001">RightShoulder_RightArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightArm_RightForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightForeArm_RightHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">RightFingerBase_RightHandIndex1_collision</collision>
+        <collision scale="12.0 20.0 5.0" pose="0.05 0 0 0 -0.2 0">LowerBack_Spine_collision</collision>
+        <velocity>0.9</velocity>
+        <radius>0.4</radius>
+        <cycle>True</cycle>
+        <animation_factor>5.1</animation_factor>
+        <people_distance>6.0</people_distance>
+        <goal_weight>2.0</goal_weight>
+        <obstacle_weight>10.0</obstacle_weight>
+        <social_weight>15</social_weight>
+        <group_gaze_weight>3.0</group_gaze_weight>
+        <group_coh_weight>2.0</group_coh_weight>
+        <group_rep_weight>1.0</group_rep_weight>
+        <ignore_obstacles>
+          <model>ground_plane</model>
+        </ignore_obstacles>
+        <trajectory>
+          <goalpoint>-6 0 1 0 0 0</goalpoint>
+          <goalpoint>6 0 1 0 0 0</goalpoint>
+        </trajectory>
+      </plugin>
+    </actor>
+    <actor name="human_6">
+      <pose>-6 1 1 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="human_6_plugin" filename="libPedestrianSFMPlugin.so">
+        <collision scale="0.01 0.001 0.001">LHipJoint_LeftUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">LeftUpLeg_LeftLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">LeftLeg_LeftFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">LeftFoot_LeftToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">RHipJoint_RightUpLeg_collision</collision>
+        <collision scale="8.0 8.0 1.0">RightUpLeg_RightLeg_collision</collision>
+        <collision scale="10.0 10.0 1.5">RightLeg_RightFoot_collision</collision>
+        <collision scale="4.0 4.0 1.5">RightFoot_RightToeBase_collision</collision>
+        <collision scale="0.01 0.001 0.001">Spine_Spine1_collision</collision>
+        <collision scale="0.01 0.001 0.001">Neck_Neck1_collision</collision>
+        <collision scale="5.0 5.0 3.0">Neck1_Head_collision</collision>
+        <collision scale="0.01 0.001 0.001">LeftShoulder_LeftArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftArm_LeftForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">LeftForeArm_LeftHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">LeftFingerBase_LeftHandIndex1_collision</collision>
+        <collision scale="0.01 0.001 0.001">RightShoulder_RightArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightArm_RightForeArm_collision</collision>
+        <collision scale="5.0 5.0 1.0">RightForeArm_RightHand_collision</collision>
+        <collision scale="4.0 4.0 3.0">RightFingerBase_RightHandIndex1_collision</collision>
+        <collision scale="12.0 20.0 5.0" pose="0.05 0 0 0 -0.2 0">LowerBack_Spine_collision</collision>
+        <velocity>0.9</velocity>
+        <radius>0.4</radius>
+        <cycle>True</cycle>
+        <animation_factor>5.1</animation_factor>
+        <people_distance>6.0</people_distance>
+        <goal_weight>2.0</goal_weight>
+        <obstacle_weight>10.0</obstacle_weight>
+        <social_weight>15</social_weight>
+        <group_gaze_weight>3.0</group_gaze_weight>
+        <group_coh_weight>2.0</group_coh_weight>
+        <group_rep_weight>1.0</group_rep_weight>
+        <ignore_obstacles>
+          <model>ground_plane</model>
+        </ignore_obstacles>
+        <trajectory>
+          <goalpoint>-6 1 1 0 0 0</goalpoint>
+          <goalpoint>6 -1 1 0 0 0</goalpoint>
+        </trajectory>
+      </plugin>
+    </actor>
   </world>
-</sdf>
+  </sdf>
