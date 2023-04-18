@@ -62,7 +62,36 @@ public:
    */
   virtual void Reset();
 
+protected:
 private:
+  bool pose_init_;  // initialized
+
+  sdf::ElementPtr sdf_;      // Pointer to the sdf element.
+  physics::ActorPtr actor_;  // Pointer to the parent actor.
+  physics::WorldPtr world_;  // Pointer to the world, for convenience.
+
+  std::unique_ptr<ros::NodeHandle> node_;  // Gazebo ROS node
+  ros::Publisher pose_pub_;                // pose publisher
+  ros::Publisher vel_pub_;                 // velocity publisher
+  ros::ServiceServer state_server_;        // pedestrian state server
+
+  std::vector<event::ConnectionPtr> connections_;  // List of connections
+
+  sfm::Agent sfm_actor_;                        // this actor as a SFM agent
+  physics::TrajectoryInfoPtr trajectory_info_;  // Custom trajectory info.
+
+  double animation_factor_ = 4.5;  // Time scaling factor.
+  double people_dist_;             // Maximum distance to detect nearby pedestrians.
+
+  std::vector<std::string> group_names_;    // names of the other models in my walking group.
+  std::vector<std::string> ignore_models_;  // List of models to ignore. Used for vector field
+  std::vector<sfm::Agent> other_actors_;    // vector of pedestrians detected.
+
+  double last_pose_x_, last_pose_y_;       // last pose
+  double px_, py_, pz_, vx_, vy_, theta_;  // current state
+  common::Time last_update_;               // Time of the last update.
+  ignition::math::Vector3d velocity_;      // Velocity of the actor
+
   /**
    * @brief Function that is called every update cycle.
    * @param _info Timing information.
@@ -80,48 +109,6 @@ private:
    * @brief Helper function to detect the nearby pedestrians (other actors).
    */
   void handlePedestrians();
-
-private:
-  // Gazebo ROS node
-  std::unique_ptr<ros::NodeHandle> node_;
-  // topic publisher
-  ros::Publisher pose_pub_;
-  ros::Publisher vel_pub_;
-  // pedestrian state server
-  ros::ServiceServer state_server_;
-  // this actor as a SFM agent
-  sfm::Agent sfm_actor_;
-  // names of the other models in my walking group.
-  std::vector<std::string> group_names_;
-  // vector of pedestrians detected.
-  std::vector<sfm::Agent> other_actors_;
-  // Maximum distance to detect nearby pedestrians.
-  double people_dist_;
-  // initialized
-  bool pose_init_;
-  // last pose
-  double last_pose_x_, last_pose_y_;
-  // current state
-  double px_, py_, pz_, vx_, vy_, theta_;
-
-  // Pointer to the parent actor.
-  physics::ActorPtr actor_;
-  // Pointer to the world, for convenience.
-  physics::WorldPtr world_;
-  // Pointer to the sdf element.
-  sdf::ElementPtr sdf_;
-  // Velocity of the actor
-  ignition::math::Vector3d velocity_;
-  // List of connections
-  std::vector<event::ConnectionPtr> connections_;
-  // Time scaling factor. Used to coordinate translational motion with the actor's walking animation.
-  double animation_factor_ = 1.0;
-  // Time of the last update.
-  common::Time last_update_;
-  // List of models to ignore. Used for vector field
-  std::vector<std::string> ignore_models_;
-  // Custom trajectory info.
-  physics::TrajectoryInfoPtr trajectory_info_;
 };
 }  // namespace gazebo
 #endif

@@ -124,6 +124,12 @@ class PedGenerator(object):
             for model in human["ignore"].values():
                 ignore_obstacles.append(PedGenerator.createElement("model", text=model))
 
+            if 'group' in human:
+                group_actors = PedGenerator.createElement("group")
+                for model in human["group"].values():
+                    group_actors.append(PedGenerator.createElement("model", text=model))
+                plugin.append(group_actors)
+
             trajectory = PedGenerator.createElement("trajectory")
             for goal in human["trajectory"].values():
                 trajectory.append(PedGenerator.createElement("goalpoint", text=goal))
@@ -138,8 +144,8 @@ class PedGenerator(object):
 
             if not plugin_visual is None:
                 actor.append(plugin_visual)
-            
-            PedGenerator.indent(actor)
+
+            # PedGenerator.indent(actor)
 
             return actor
 
@@ -150,6 +156,8 @@ class PedGenerator(object):
         human_num = len(self.ped_cfg["pedestrians"])
         for i in range(human_num):
             world.append(createHuman(self.ped_cfg, i))
+
+        PedGenerator.indent(world, 1)
 
         with open(path, "wb+") as f:
             tree.write(f, encoding="utf-8", xml_declaration=True)
@@ -184,10 +192,10 @@ class PedGenerator(object):
         level: int
             indent level.
         """
-        i = "\n" + level * "\t"
+        i = "\n" + level * " " * 2
         if len(elem):
             if not elem.text or not elem.text.strip():
-                elem.text = i + "\t"
+                elem.text = i + " " * 2
             if not elem.tail or not elem.tail.strip():
                 elem.tail = i
             for elem in elem:
