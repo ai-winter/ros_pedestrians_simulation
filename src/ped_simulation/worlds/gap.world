@@ -296,7 +296,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>0.659345 -6.06183 0 0 -0 0</pose>
+      <pose>0 2.5 0 0 -0 0</pose>
     </model>
     <model name='wall_1_clone'>
       <link name='Wall'>
@@ -401,7 +401,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>0.022969 -2.29501 0 0 -0 0</pose>
+      <pose>0 -2.5 0 0 -0 0</pose>
     </model>
     <model name='wall_2'>
       <link name='Wall'>
@@ -506,7 +506,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>0.227384 -3.20702 0 0 -0 0</pose>
+      <pose>0 -1.5 0 0 -0 1.57</pose>
     </model>
     <model name='wall_2_clone'>
       <link name='Wall'>
@@ -611,7 +611,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>-1.98791 0.724579 0 0 -0 1.57</pose>
+      <pose>-3 1.5 0 0 -0 1.57</pose>
     </model>
     <model name='wall_3'>
       <link name='Wall'>
@@ -716,7 +716,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>-3.08533 -0.824502 0 0 -0 1.57</pose>
+      <pose>-3 -2 0 0 -0 1.57</pose>
     </model>
     <model name='wall_3_clone'>
       <link name='Wall'>
@@ -821,7 +821,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>0.733813 0.947904 0 0 -0 1.57</pose>
+      <pose>0 2 0 0 -0 1.57</pose>
     </model>
     <model name='wall_3_clone_clone'>
       <link name='Wall'>
@@ -926,7 +926,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>2.82967 -1.84787 0 0 -0 1.57</pose>
+      <pose>3 -2 0 0 -0 1.57</pose>
     </model>
     <model name='wall_2_clone_clone'>
       <link name='Wall'>
@@ -1031,7 +1031,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>2.86688 1.57495 0 0 -0 1.57</pose>
+      <pose>3 1.5 0 0 -0 1.57</pose>
     </model>
   </world>
 </sdf>
