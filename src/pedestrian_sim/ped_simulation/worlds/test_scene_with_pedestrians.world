@@ -481,7 +481,7 @@
 			<model>turtlebot3_waffle</model>
 		</ignore_obstacles>
 		<trajectory>
-			<goalpoint>5 0 1 0 0 0</goalpoint>
+			<goalpoint>5 -2 1 0 0 0</goalpoint>
 			<goalpoint>5 2 1 0 0 0</goalpoint>
 		</trajectory>
 	</plugin>

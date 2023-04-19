@@ -9,7 +9,33 @@ from tf2_geometry_msgs.tf2_geometry_msgs import PointStamped
 from geometry_msgs.msg import Point, Pose, PoseArray
 from visualization_msgs.msg import Marker
 
+from kalman_filter import Kalman
+
 from dr_spaam.detector import Detector
+
+
+class PersonEstimate:
+    def __init__(self) -> None:
+        self.filter = Kalman()
+        self.last_pos = None
+        self.age = None
+    
+    def update(self, time_stamp, new_pos):
+        dp = new_pos - self.last_pos
+        time = (time_stamp - self.age).to_sec()
+        vx, vy = dp[0] / time, dp[1] / time
+
+        # update
+        self.last_pos = new_pos
+        self.age = time_stamp
+        self.filter.update([vx, vy])
+    
+    @property
+    def velocity(self):
+        k = self.filter.values()
+        if k is None:
+            return None
+        return (k[0], k[1])
 
 
 class DrSpaamROS:
@@ -45,6 +71,8 @@ class DrSpaamROS:
         self.tf_buffer = tf2_ros.Buffer()
         tf2_ros.TransformListener(self.tf_buffer)
 
+
+        self.people = []
         # Publisher
         self._dets_pub = rospy.Publisher("/human_track_detections", PoseArray, queue_size=1)
 
@@ -88,7 +116,7 @@ class DrSpaamROS:
         # print(dets_xy, type(dets_xy))
 
         # convert to ros msg and publish
-        self.publishPoseArray(msg, dets_xy, dets_cls)
+        self.publishPoseArray(msg, dets_xy)
 
         rviz_msg = self.detections_to_rviz_marker(dets_xy, dets_cls)
         rviz_msg.header = msg.header
@@ -142,9 +170,53 @@ class DrSpaamROS:
         return msg
 
 
-    def publishPoseArray(self, msg, dets_xy, dets_cls):
-        # if self.last_update is None:
-        #     self.last_update = rospy.Time.to_sec()
+    # def publishPoseArray(self, msg, dets_xy):
+    #     for i, person in enumerate(self.people):
+    #         # out of date
+    #         if rospy.Time.now() - person.age > rospy.Duration(2.0):
+    #             self.people.pop(i)
+    #             del person
+
+    #     pose_array = PoseArray()
+    #     for d_xy in dets_xy:
+    #         map_pos = np.array(self._calMapPos(d_xy))
+    #         new_person = True
+
+    #         for person in self.people:
+    #             delta = np.sqrt(np.sum((person.last_pos - map_pos)**2))
+    #             if delta < 0.4:
+    #                 person.update(msg.header.stamp, map_pos)
+    #                 new_person = False
+
+    #                 p = Pose()
+    #                 p.position.x = map_pos[0]
+    #                 p.position.y = map_pos[1]
+    #                 p.position.z = 0.0
+    #                 print(person.velocity)
+    #                 yaw = math.atan2(person.velocity[0], person.velocity[1])
+    #                 q = tf.transformations.quaternion_from_euler(0, 0, np.pi / 2 + yaw)
+    #                 p.orientation.x = q[0]
+    #                 p.orientation.y = q[1]
+    #                 p.orientation.z = q[2]
+    #                 p.orientation.w = q[3]
+    #                 pose_array.poses.append(p)
+
+    #                 break
+            
+    #         if new_person:
+    #             person = PersonEstimate()
+    #             person.last_pos = map_pos
+    #             person.age = msg.header.stamp
+    #             self.people.append(person)
+    #     print(len(self.people))
+    #     pose_array.header.stamp = msg.header.stamp
+    #     pose_array.header.frame_id = "map"
+    #     self._dets_pub.publish(pose_array)
+
+
+    def publishPoseArray(self, msg, dets_xy):
+        if self.last_update is None:
+            self.last_update = msg.header.stamp
 
 
         # transform from scan frame to map frame
@@ -155,9 +227,9 @@ class DrSpaamROS:
                 map_pos.append((single_map_pos[0], single_map_pos[1]))
             dets_xy = np.array(map_pos)
 
-        print("time: ", rospy.Time.now())
-        print("last: ", self.last_pos)
-        print("now: ", dets_xy)
+        # print("time: ", rospy.Time.now())
+        # print("last: ", self.last_pos)
+        # print("now: ", dets_xy)
 
         if self.last_pos is None or not self.last_pos.size or not dets_xy.size:
             self.last_pos = dets_xy
@@ -175,9 +247,9 @@ class DrSpaamROS:
             arg_min_dist = np.argmin(dist, axis=1)
 
 
-            print("dist: ", dist)
-            print("min dist: ", min_dist)
-            print("arg: ", arg_min_dist)
+            # print("dist: ", dist)
+            # print("min dist: ", min_dist)
+            # print("arg: ", arg_min_dist)
 
             pose_array = PoseArray()
             for i, d_xy in enumerate(dets_xy):
@@ -189,11 +261,13 @@ class DrSpaamROS:
                 p.position.x = d_xy[0]
                 p.position.y = d_xy[1]
                 p.position.z = 0.0
-
                 # estimate velocity
                 dp = d_xy - self.last_pos[arg_min_dist[i], :]
+                dt = (msg.header.stamp - self.last_update).to_sec()
+                print("x:", d_xy[0], "--------y: ", d_xy[1], "------dt:", dt)
+                # print("x: ", dp[0] / dt, "y: ", dp[1] / dt)
                 yaw = math.atan2(dp[0], dp[1])
-                print(i, "------", d_xy, "----", self.last_pos[arg_min_dist[i], :], "----", yaw)
+                # print(i, "------", d_xy, "----", self.last_pos[arg_min_dist[i], :], "----", yaw)
                 q = tf.transformations.quaternion_from_euler(0, 0, np.pi / 2 + yaw)
                 p.orientation.x = q[0]
                 p.orientation.y = q[1]
@@ -208,6 +282,7 @@ class DrSpaamROS:
 
             self.last_pos = dets_xy
             self._dets_pub.publish(pose_array)
+        self.last_update = msg.header.stamp
 
     def _calMapPos(self, d_xy):
         pos_scan = PointStamped()

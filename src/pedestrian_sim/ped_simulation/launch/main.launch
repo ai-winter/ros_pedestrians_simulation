@@ -23,10 +23,10 @@
 
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
-    <!-- <node pkg="dr_spaam_ros" type="node.py" name="dr_spaam_ros" output="screen">
+    <node pkg="dr_spaam_ros" type="node.py" name="dr_spaam_ros" output="screen">
     <rosparam command="load" file="$(find dr_spaam_ros)/config/dr_spaam_ros.yaml"/>
     <rosparam command="load" file="$(find dr_spaam_ros)/config/topics.yaml"/>
-  </node> -->
+  </node>
   <!-- <include file="$(find people_velocity_tracker)/launch/tracked_detector.launch" /> -->
   <!-- AMCL -->
   <include file="$(find ped_simulation)/launch/include/amcl.launch.xml">
