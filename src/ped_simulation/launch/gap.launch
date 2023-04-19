@@ -2,6 +2,6 @@
 <launch>
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find ped_simulation)/worlds/gap_with_pedestrians.world" />
-        <arg name="verbose" value="true" />
+        <arg name="verbose" value="false" />
     </include>
 </launch>

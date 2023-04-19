@@ -375,7 +375,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
   sfm::SFM.updatePosition(sfm_actor_, dt);
 
   utils::Angle h = sfm_actor_.yaw;
-  utils::Angle add = utils::Angle::fromRadian(1.5707);
+  utils::Angle add = utils::Angle::fromRadian(IGN_PI_2);
   h = h + add;
   double yaw = h.toRadian();
 
@@ -391,7 +391,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
   actor_pose.Pos().X(sfm_actor_.position.getX());
   actor_pose.Pos().Y(sfm_actor_.position.getY());
   actor_pose.Pos().Z(1.0);
-  actor_pose.Rot() = ignition::math::Quaterniond(1.5707, 0, yaw);
+  actor_pose.Rot() = ignition::math::Quaterniond(IGN_PI_2, 0, yaw);
 
   // Distance traveled is used to coordinate motion with the walking
   double distance_traveled = (actor_pose.Pos() - actor_->WorldPose().Pos()).Length();
