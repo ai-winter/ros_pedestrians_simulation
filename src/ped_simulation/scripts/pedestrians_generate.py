@@ -80,11 +80,12 @@ class PedGenerator(object):
             animation.append(PedGenerator.createElement("interpolate_x", text="true"))
 
             # plugin
-            if not index:
-                plugin_visual = PedGenerator.createElement("plugin", props={"name": "pedestrian_visual", "filename": "libPedestrianVisualPlugin.so"})
-                plugin_visual.append(PedGenerator.createElement("update_rate", text=str(upd_rate)))
-            else:
-                plugin_visual = None
+            # if not index:
+            #     plugin_visual = PedGenerator.createElement("plugin", props={"name": "pedestrian_visual", "filename": "libPedestrianVisualPlugin.so"})
+            #     plugin_visual.append(PedGenerator.createElement("update_rate", text=str(upd_rate)))
+            # else:
+            #     plugin_visual = None
+            plugin_visual = None
 
             plugin = PedGenerator.createElement("plugin", props={"name": human["name"] + "_plugin", "filename": "libPedestrianSFMPlugin.so"})
             plugin.append(createCollision("LHipJoint_LeftUpLeg_collision", [0.01, 0.001, 0.001]))
@@ -124,7 +125,7 @@ class PedGenerator(object):
             for model in human["ignore"].values():
                 ignore_obstacles.append(PedGenerator.createElement("model", text=model))
 
-            if 'group' in human:
+            if "group" in human:
                 group_actors = PedGenerator.createElement("group")
                 for model in human["group"].values():
                     group_actors.append(PedGenerator.createElement("model", text=model))
