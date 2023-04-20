@@ -1,0 +1,47 @@
+world: test_scene
+update_rate: 5
+
+# sfm algorithm configure
+social_force:
+  animation_factor: 5.1
+  # only handle pedestrians within `people_distance`
+  people_distance: 6.0
+  # weights of social force model
+  goal_weight: 2.0
+  obstacle_weight: 80.0
+  social_weight: 15
+  group_gaze_weight: 3.0
+  group_coh_weight: 2.0
+  group_rep_weight: 1.0
+
+# pedestrians setting
+pedestrians:
+  ped_tracker:
+    enable: true
+    model: DROW3
+    weight: ckpt_jrdb_ann_drow3_e40.pth
+  ped_property:
+    - name: human_1
+      pose: 5 -2 1 0 0 1.57
+      velocity: 0.9
+      radius: 0.4
+      cycle: true
+      time_delay: 5
+      ignore:
+        model_1: ground_plane
+        model_2: turtlebot3_waffle
+      trajectory:
+        goal_point_1: 5 -2 1 0 0 0
+        goal_point_2: 5 2 1 0 0 0
+    - name: human_2
+      pose: 6 -3 1 0 0 0
+      velocity: 1.2
+      radius: 0.4
+      cycle: true
+      time_delay: 3
+      ignore:
+        model_1: ground_plane
+        model_2: turtlebot3_waffle
+      trajectory:
+        goal_point_1: 6 -3 1 0 0 0
+        goal_point_2: 6 4 1 0 0 0

@@ -47,40 +47,52 @@ social_force:
 
 # pedestrians setting
 pedestrians:
-  - name: human_1
-    pose: 3 2 1 0 0 0
-    velocity: 0.9
-    radius: 0.4
-    cycle: true
-    ignore:
-      model_1: ground_plane
-      model_2: turtlebot3_waffle
-    trajectory:
-      goal_point_1: 3 2 1 0 0 0
-      goal_point_2: 3 -8 1 0 0 0
-  - name: human_2
-    pose: 3 -8 1 0 0 0
-    velocity: 1.2
-    radius: 0.4
-    cycle: true
-    ignore:
-      model_1: ground_plane
-      model_2: turtlebot3_waffle
-    trajectory:
-      goal_point_1: 3 -8 1 0 0 0
-      goal_point_2: 3 2 1 0 0 0
+  ped_tracker:
+    enable: true
+    model: DROW3
+    weight: ckpt_jrdb_ann_drow3_e40.pth
+  ped_property:
+    - name: human_1
+      pose: 5 -2 1 0 0 1.57
+      velocity: 0.9
+      radius: 0.4
+      cycle: true
+      time_delay: 5
+      ignore:
+        model_1: ground_plane
+        model_2: turtlebot3_waffle
+      trajectory:
+        goal_point_1: 5 -2 1 0 0 0
+        goal_point_2: 5 2 1 0 0 0
+    - name: human_2
+      pose: 6 -3 1 0 0 0
+      velocity: 1.2
+      radius: 0.4
+      cycle: true
+      time_delay: 3
+      ignore:
+        model_1: ground_plane
+        model_2: turtlebot3_waffle
+      trajectory:
+        goal_point_1: 6 -3 1 0 0 0
+        goal_point_2: 6 4 1 0 0 0
 ```
 Explanation:
 
 - `world`: Gazebo world，located in `src/worlds/`.
 - `update_rate`: Update rate of pedestrains presentation. The higher `update_rate`, the more sluggish the environment becomes.
 - `social_force`: The weight factors that modify the navigation behavior. See the [Social Force Model](https://github.com/robotics-upo/lightsfm) for further information.
-- `pedestrians`: Pedestrians configuration.
+- `pedestrians/ped_tracker`: Pedestrians tracker thread. *NOTE: Need `Pytorch` environment!*
+  - `enable`: Enable the tracker.
+  - `model`: Select the detection model. *Optional: `DROW3` or `DR-SPAAM`*
+  - `weight`: The weight file for the detection model respectively which located in `pedestrian_tracker/weight/..`.
+- `pedestrians/ped_property`: Pedestrians property configuration.
   - `name`: The id for each human.
   - `pose`: The initial pose for each human.
   - `velocity`: Maximum velocity (*m/s*) for each human.
   - `radius`: Approximate radius of the human's body (m).
   - `cycle`: If *true*, the actor will start the goal point sequence when the last goal point is reached.
+  - `time_delay`: This is time in seconds to wait before starting the human motion.
   - `ignore_obstacles`: All the models that must be ignored as obstacles, must be indicated here. The other actors in the world are included automatically.
   - `trajectory`. The list of goal points that the actor must reach must be indicated here. The goals will be post into social force model.
 
@@ -90,10 +102,14 @@ Explanation:
 
 We provide a script to quickly start the world
 ```sh
-cd scripts
+cd ./pedestrian_simulation/scripts
 ./main.sh
 ```
 
 # More
 
 More examples could be found at [https://github.com/ai-winter/ros_motion_planning](https://github.com/ai-winter/ros_motion_planning).
+
+# Acknowledgments
+* Pedestrian tracker: [2D_lidar_person_detection](https://github.com/VisualComputingInstitute/2D_lidar_person_detection)
+* Pedestrian RVIZ visualization: [spencer_tracking_rviz_plugin](https://github.com/srl-freiburg/spencer_tracking_rviz_plugin)
