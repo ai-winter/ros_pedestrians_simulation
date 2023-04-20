@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <string>
 
-#include <pedestrian_sfm_plugin.h>
+#include <gazebo_sfm_plugin/pedestrian_sfm_plugin.h>
 
 #define WALKING_ANIMATION "walking"
 
@@ -34,7 +34,6 @@ PedestrianSFMPlugin::PedestrianSFMPlugin() : pose_init_(false)
  */
 PedestrianSFMPlugin::~PedestrianSFMPlugin()
 {
-  pose_pub_.shutdown();
 }
 
 /**

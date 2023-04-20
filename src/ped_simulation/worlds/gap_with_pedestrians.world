@@ -1072,11 +1072,11 @@
         <animation_factor>5.1</animation_factor>
         <people_distance>6.0</people_distance>
         <goal_weight>2.0</goal_weight>
-        <obstacle_weight>10.0</obstacle_weight>
-        <social_weight>15</social_weight>
+        <obstacle_weight>60.0</obstacle_weight>
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
+        <social_weight>16.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1124,11 +1124,11 @@
         <animation_factor>5.1</animation_factor>
         <people_distance>6.0</people_distance>
         <goal_weight>2.0</goal_weight>
-        <obstacle_weight>10.0</obstacle_weight>
-        <social_weight>15</social_weight>
+        <obstacle_weight>60.0</obstacle_weight>
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
+        <social_weight>1.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1176,11 +1176,11 @@
         <animation_factor>5.1</animation_factor>
         <people_distance>6.0</people_distance>
         <goal_weight>2.0</goal_weight>
-        <obstacle_weight>10.0</obstacle_weight>
-        <social_weight>15</social_weight>
+        <obstacle_weight>60.0</obstacle_weight>
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
+        <social_weight>16.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1228,11 +1228,11 @@
         <animation_factor>5.1</animation_factor>
         <people_distance>6.0</people_distance>
         <goal_weight>2.0</goal_weight>
-        <obstacle_weight>10.0</obstacle_weight>
-        <social_weight>15</social_weight>
+        <obstacle_weight>60.0</obstacle_weight>
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
+        <social_weight>16.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1280,11 +1280,11 @@
         <animation_factor>5.1</animation_factor>
         <people_distance>6.0</people_distance>
         <goal_weight>2.0</goal_weight>
-        <obstacle_weight>10.0</obstacle_weight>
-        <social_weight>15</social_weight>
+        <obstacle_weight>60.0</obstacle_weight>
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
+        <social_weight>16.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1332,11 +1332,11 @@
         <animation_factor>5.1</animation_factor>
         <people_distance>6.0</people_distance>
         <goal_weight>2.0</goal_weight>
-        <obstacle_weight>10.0</obstacle_weight>
-        <social_weight>15</social_weight>
+        <obstacle_weight>60.0</obstacle_weight>
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
+        <social_weight>16.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>

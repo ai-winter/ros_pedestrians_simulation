@@ -116,10 +116,15 @@ class PedGenerator(object):
             plugin.append(PedGenerator.createElement("people_distance", text=str(sfm["people_distance"])))
             plugin.append(PedGenerator.createElement("goal_weight", text=str(sfm["goal_weight"])))
             plugin.append(PedGenerator.createElement("obstacle_weight", text=str(sfm["obstacle_weight"])))
-            plugin.append(PedGenerator.createElement("social_weight", text=str(sfm["social_weight"])))
+            # plugin.append(PedGenerator.createElement("social_weight", text=str(sfm["social_weight"])))
             plugin.append(PedGenerator.createElement("group_gaze_weight", text=str(sfm["group_gaze_weight"])))
             plugin.append(PedGenerator.createElement("group_coh_weight", text=str(sfm["group_coh_weight"])))
             plugin.append(PedGenerator.createElement("group_rep_weight", text=str(sfm["group_rep_weight"])))
+
+            if "social_weight" in human:
+                plugin.append(PedGenerator.createElement("social_weight", text=str(human["social_weight"])))
+            else:
+                plugin.append(PedGenerator.createElement("social_weight", text=str(sfm["social_weight"])))
 
             ignore_obstacles = PedGenerator.createElement("ignore_obstacles")
             for model in human["ignore"].values():
