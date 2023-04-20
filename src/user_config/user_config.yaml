@@ -1,0 +1,10 @@
+map: test_scene
+world: empty
+robot_config:
+  robot_type: turtlebot3_waffle
+  robot_x_pos: 2.0
+  robot_y_pos: 0.0
+  robot_z_pos: 0.0
+  robot_yaw: 0.0
+rviz_file: sim_env.rviz
+pedestrians: pedestrians_config.yaml
