@@ -12,58 +12,39 @@
 *  @license  GNU General Public License (GPL)                                            *
 ******************************************************************************************
 """
-import yaml
 import xml.etree.ElementTree as ET
-import sys, os
+from .xml_generate import XMLGenerator
 
 
-class PedGenerator(object):
+class PedGenerator(XMLGenerator):
     def __init__(self) -> None:
+        super().__init__()
         # get the root path of package(src layer)
-        self.root_path = os.path.split(os.path.realpath(__file__))[0] + "/../../"
         self.ped_path = self.root_path + "pedestrian_simulation/"
-
-        # user configure
-        self.user_cfg = PedGenerator.yamlParser(self.root_path + "user_config/" + sys.argv[1])
 
         if "pedestrians" in self.user_cfg.keys() and self.user_cfg["pedestrians"]:
             self.ped_cfg = PedGenerator.yamlParser(self.root_path + "user_config/" + self.user_cfg["pedestrians"])
         else:
             self.ped_cfg = None
+    
+    def __str__(self) -> str:
+        return "Pedestrians Generator"
 
-    def writeMainLaunch(self, path):
+    def plugin(self):
         """
-        Create main launch file to run ROS node.
-
-        Parameters
-        ----------
-        path: str
-            the path of file(.launch.xml) to write.
+        Implement of pedestrian application.
         """
-        launch = PedGenerator.createElement("launch")
-        
-        # include file
-        include = PedGenerator.createElement("include", props={"file": "$(find ped_simulation)/launch/config.launch"})
-        # robot property
-        robot_cfg = self.user_cfg["robot_config"]
-        include.append(PedGenerator.createElement("arg", props={"name": "model", "value": robot_cfg["robot_type"]}))
-        include.append(PedGenerator.createElement("arg", props={"name": "x_pos", "value": str(robot_cfg["robot_x_pos"])}))
-        include.append(PedGenerator.createElement("arg", props={"name": "y_pos", "value": str(robot_cfg["robot_y_pos"])}))
-        include.append(PedGenerator.createElement("arg", props={"name": "z_pos", "value": str(robot_cfg["robot_z_pos"])}))
-        include.append(PedGenerator.createElement("arg", props={"name": "yaw", "value": str(robot_cfg["robot_yaw"])}))
-        include.append(PedGenerator.createElement("arg", props={"name": "map", "value": self.user_cfg["map"]}))
-        include.append(PedGenerator.createElement("arg", props={"name": "rviz_file", "value": self.user_cfg["rviz_file"]}))
-
+        app_register = []
         if not self.ped_cfg is None:
-            include.append(PedGenerator.createElement("arg", props={"name": "world", "value": self.user_cfg["world"] + "_with_pedestrians"}))
-        else:
-            include.append(PedGenerator.createElement("arg", props={"name": "world", "value": self.user_cfg["world"]}))
+            '''dynamic confiugre'''
+            self.writePedestrianWorld(self.ped_path + "worlds/" + self.user_cfg["world"] + "_with_pedestrians.world")
 
-        launch.append(include)
-        
-        # pedestrian application:
-        if not self.ped_cfg is None:
-            # tracker
+            '''app register'''
+            # world generation
+            ped_world = PedGenerator.createElement("arg", props={"name": "world", 
+                "value": self.user_cfg["world"] + "_with_pedestrians"})
+            app_register.append(ped_world)
+            # pedestrians tracker
             if self.ped_cfg["pedestrians"]["ped_tracker"]["enable"]:
                 tracker = PedGenerator.createElement("node", props={"pkg": "pedestrian_tracker",
                     "type": "dr_spaam_ros.py", "name": "pedestrian_tracker", "output": "screen"})
@@ -72,15 +53,13 @@ class PedGenerator(object):
                 model = self.ped_cfg["pedestrians"]["ped_tracker"]["model"]
                 tracker.append(PedGenerator.createElement("param", props={"name": "weight", "value": weight}))    
                 tracker.append(PedGenerator.createElement("param", props={"name": "model", "value": model}))
-
-                launch.append(tracker)           
-
-        PedGenerator.indent(launch)
-        launch = ET.ElementTree(launch)
-
-        with open(path, "wb+") as f:
-            launch.write(f, encoding="utf-8", xml_declaration=True)
-
+                app_register.append(tracker)
+        else:
+            # world generation
+            ped_world = PedGenerator.createElement("arg", props={"name": "world", "value": self.user_cfg["world"]})
+            app_register.append(ped_world)
+        
+        return app_register
 
     def writePedestrianWorld(self, path):
         """
@@ -215,59 +194,3 @@ class PedGenerator(object):
 
             with open(path, "wb+") as f:
                 tree.write(f, encoding="utf-8", xml_declaration=True)
-
-    @staticmethod
-    def yamlParser(path: str) -> dict:
-        """
-        Parser user configure file(.yaml).
-
-        Parameters
-        ----------
-        path: str
-            the path of file(.yaml).
-
-        Return
-        ----------
-        data: dict
-            user configuer tree
-        """
-        with open(path, "r") as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-        return data
-
-    @staticmethod
-    def indent(elem: ET.Element, level: int = 0) -> None:
-        """
-        Format the generated xml document.
-
-        Parameters
-        ----------
-        elem: ET.Element
-        level: int
-            indent level.
-        """
-        i = "\n" + level * "\t"
-        if len(elem):
-            if not elem.text or not elem.text.strip():
-                elem.text = i + "\t"
-            if not elem.tail or not elem.tail.strip():
-                elem.tail = i
-            for elem in elem:
-                PedGenerator.indent(elem, level + 1)
-            if not elem.tail or not elem.tail.strip():
-                elem.tail = i
-        else:
-            if level and (not elem.tail or not elem.tail.strip()):
-                elem.tail = i
-
-    @staticmethod
-    def createElement(name: str, text: str = None, props: dict = {}) -> ET.Element:
-        e = ET.Element(name, attrib=props)
-        if not text is None:
-            e.text = text
-        return e
-
-
-ped_gen = PedGenerator()
-ped_gen.writeMainLaunch(ped_gen.ped_path + "launch/main.launch")
-ped_gen.writePedestrianWorld(ped_gen.ped_path + "worlds/" + ped_gen.user_cfg["world"] + "_with_pedestrians.world")

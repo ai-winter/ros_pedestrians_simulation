@@ -43,3 +43,16 @@ pedestrians:
       trajectory:
         goal_point_1: 6 -3 1 0 0 0
         goal_point_2: 6 4 1 0 0 0
+    - name: human_3
+      pose: 0 -4 1 0 0 0
+      velocity: 1.2
+      radius: 0.4
+      cycle: true
+      # time_delay: 3
+      ignore:
+        model_1: ground_plane
+        model_2: turtlebot3_waffle
+      trajectory:
+        goal_point_1: 0 -4 1 0 0 0
+        goal_point_2: 0 0 1 0 0 0
+        goal_point_3: 0 4 1 0 0 0

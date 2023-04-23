@@ -105,40 +105,20 @@ void PedestrianVisualPlugin::publishPedVisuals()
       model_state.request.name = model->GetName();
       state_client.call(model_state);
 
-      if (!isfinite(model_state.response.px) || !isfinite(model_state.response.py) || !isfinite(model_state.response.pz))
-      {
-        ROS_WARN("!!!!!!!!!!!");
-        // geometry_msgs::PoseWithCovariance pose_with_cov;
-        // pose_with_cov.pose.position.x = 0;
-        // pose_with_cov.pose.position.y = 0;
-        // pose_with_cov.pose.position.z = 0;
-        // tf2::Quaternion q;
-        // q.setRPY(0, 0, model_state.response.theta - 1.57);
-        // tf2::convert(q, pose_with_cov.pose.orientation);
-        // person.pose = pose_with_cov;
+      geometry_msgs::PoseWithCovariance pose_with_cov;
+      pose_with_cov.pose.position.x = model_state.response.px;
+      pose_with_cov.pose.position.y = model_state.response.py;
+      pose_with_cov.pose.position.z = model_state.response.pz;
+      tf2::Quaternion q;
+      q.setRPY(0, 0, model_state.response.theta - 1.57);
+      tf2::convert(q, pose_with_cov.pose.orientation);
+      person.pose = pose_with_cov;
 
-        // geometry_msgs::TwistWithCovariance twist_with_cov;
-        // twist_with_cov.twist.linear.x = 0;
-        // twist_with_cov.twist.linear.y = 0;
-        // person.twist = twist_with_cov;
-      }
-      else
-      {
-        geometry_msgs::PoseWithCovariance pose_with_cov;
-        pose_with_cov.pose.position.x = model_state.response.px;
-        pose_with_cov.pose.position.y = model_state.response.py;
-        pose_with_cov.pose.position.z = model_state.response.pz;
-        tf2::Quaternion q;
-        q.setRPY(0, 0, model_state.response.theta - 1.57);
-        tf2::convert(q, pose_with_cov.pose.orientation);
-        person.pose = pose_with_cov;
-
-        geometry_msgs::TwistWithCovariance twist_with_cov;
-        twist_with_cov.twist.linear.x = model_state.response.vx;
-        twist_with_cov.twist.linear.y = model_state.response.vy;
-        person.twist = twist_with_cov;
-        tracked_people.tracks.push_back(person);
-      }
+      geometry_msgs::TwistWithCovariance twist_with_cov;
+      twist_with_cov.twist.linear.x = model_state.response.vx;
+      twist_with_cov.twist.linear.y = model_state.response.vy;
+      person.twist = twist_with_cov;
+      tracked_people.tracks.push_back(person);
     }
   }
   ped_visual_pub_.publish(tracked_people);
