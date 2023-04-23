@@ -7,7 +7,7 @@ social_force:
   people_distance: 6.0 # default: 6.0, only handle pedestrians within `people_distance`
   goal_weight: 2.0 # default: 2.0, weights of social force model
   obstacle_weight: 60.0 # default: 10.0
-  social_weight: 16.0 # default: 2.1, you can also set seperately in pedestrians setting
+  social_weight: 2.1 # default: 2.1, you can also set seperately in pedestrians setting
   group_gaze_weight: 3.0
   group_coh_weight: 2.0
   group_rep_weight: 1.0
@@ -18,7 +18,7 @@ pedestrians:
     pose: 6 -1 1 0 0 0
     velocity: 0.9
     radius: 0.4
-    # social_weight: 8.0
+    social_weight: 5.0
     cycle: true
     ignore:
       model_1: ground_plane
@@ -32,7 +32,7 @@ pedestrians:
     pose: 6 0 1 0 0 0
     velocity: 0.9
     radius: 0.4
-    social_weight: 1.0
+    social_weight: 10.0
     cycle: true
     ignore:
       model_1: ground_plane
@@ -46,7 +46,7 @@ pedestrians:
     pose: 6 1 1 0 0 0
     velocity: 0.9
     radius: 0.4
-    # social_weight: 8.0
+    social_weight: 15.0
     cycle: true
     ignore:
       model_1: ground_plane
@@ -60,7 +60,7 @@ pedestrians:
     pose: -6 -1 1 0 0 0
     velocity: 0.9
     radius: 0.4
-    # social_weight: 16.0
+    social_weight: 20.0
     cycle: true
     ignore:
       model_1: ground_plane
@@ -74,7 +74,7 @@ pedestrians:
     pose: -6 0 1 0 0 0
     velocity: 0.9
     radius: 0.4
-    # social_weight: 8.0
+    social_weight: 12.0
     cycle: true
     ignore:
       model_1: ground_plane
@@ -88,7 +88,7 @@ pedestrians:
     pose: -6 1 1 0 0 0
     velocity: 0.9
     radius: 0.4
-    # social_weight: 16.0
+    social_weight: 18.0
     cycle: true
     ignore:
       model_1: ground_plane

@@ -1076,7 +1076,7 @@
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
-        <social_weight>16.0</social_weight>
+        <social_weight>5.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1128,7 +1128,7 @@
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
-        <social_weight>1.0</social_weight>
+        <social_weight>10.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1180,7 +1180,7 @@
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
-        <social_weight>16.0</social_weight>
+        <social_weight>15.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1232,7 +1232,7 @@
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
-        <social_weight>16.0</social_weight>
+        <social_weight>20.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1284,7 +1284,7 @@
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
-        <social_weight>16.0</social_weight>
+        <social_weight>12.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
@@ -1336,7 +1336,7 @@
         <group_gaze_weight>3.0</group_gaze_weight>
         <group_coh_weight>2.0</group_coh_weight>
         <group_rep_weight>1.0</group_rep_weight>
-        <social_weight>16.0</social_weight>
+        <social_weight>18.0</social_weight>
         <ignore_obstacles>
           <model>ground_plane</model>
         </ignore_obstacles>
