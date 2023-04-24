@@ -10,7 +10,7 @@ obstacles:
       h: 0.80
   - type: BOX
     pose: 6 2 0 0 0 0
-    color: Grey
+    color: White
     props:
       m: 1.00
       w: 0.25
