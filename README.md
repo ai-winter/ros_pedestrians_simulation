@@ -1,11 +1,44 @@
-![pedestrians_environment](./pedestrians_environment.png)
+![pedestrians_environment](./assets/pedestrians_environment.png)
 
-# Introduction
+## Table of Contents
+- [Introduction](#0)
+- [File Tree](#1)
+- [Configuration](#2)
+- [Start](#3)
+- [More](#4)
+- [Acknowledgments](#5)
+
+# <span id="0">Introduction
 
 This is a Gazebo plugin for pedestians with collision property. You can construct a dynamic environment in ROS easily using plugin.
 
+# <span id="1">File Tree
 
-# Configure
+The file structure is shown below.
+
+```
+ros_pedestrians_simulation
+├── assets
+└── src
+    ├── pedestrian_plugins
+    │   ├── 3rdparty
+    │   ├── gazebo_ped_visualizer_plugin
+    │   └── gazebo_sfm_plugin
+    ├── pedestrian_simulation
+    │   ├── config
+    │   ├── launch
+    │   ├── maps
+    │   ├── rviz
+    │   ├── scripts
+    │   ├── urdf
+    │   └── worlds
+    ├── pedestrian_tracker
+    │   ├── scripts
+    │   └── weight
+    └── user_config
+```
+
+# <span id="2">Configuration
 To start simulation, compile using `catkin_make`. You can directly using this folder as workspace.
 ```bash
 cd pedestrians_simulation/
@@ -23,14 +56,39 @@ catkin_make
 Edit pedestrians configure
 ```sh
 cd src/config/
-touch pedestrians_config.yaml
+touch user_config.yaml
 ```
 
-Below is the example of `pedestrians_config.yaml`
+Below is the example of `user_config.yaml`
 
 ```yaml
-world: test_scene
-update_rate: 5
+map: test_scene
+world: empty
+robot_config:
+  robot_type: turtlebot3_waffle
+  robot_x_pos: 5.0
+  robot_y_pos: 1.0
+  robot_z_pos: 0.0
+  robot_yaw: 0.0
+rviz_file: sim_env.rviz
+pedestrians: pedestrians_config.yaml
+obstacles: obstacles_config.yaml
+```
+Explanation:
+
+- `map`: static map，located in `src/pedestrian_simulation/maps/`,
+- `world`: Gazebo world，located in `src/pedestrian_simulation/worlds/`.
+- `robot_config`: robotic configuration.
+  - `robot_type`: robotic type，such as `turtlebot3_burger`, `turtlebot3_waffle` and `turtlebot3_waffle_pi`.
+  - `xyz_pos` and `yaw`: robotic initial pose.
+- `rviz_file`: RVIZ configure, set `rviz_file` as `""` for first use.
+- `pedestrians`: configure file to add dynamic obstacles(e.g. pedestrians).
+- `obstacles`: configure file to add static obstacles.
+
+For *pedestrians* and *obstacles* configuration files, the examples are shown below
+
+```yaml
+## pedestrians_config.yaml
 
 # sfm algorithm configure
 social_force:
@@ -47,6 +105,7 @@ social_force:
 
 # pedestrians setting
 pedestrians:
+  update_rate: 5
   ped_tracker:
     enable: true
     model: DROW3
@@ -79,9 +138,9 @@ pedestrians:
 ```
 Explanation:
 
-- `world`: Gazebo world，located in `src/worlds/`.
-- `update_rate`: Update rate of pedestrains presentation. The higher `update_rate`, the more sluggish the environment becomes.
+
 - `social_force`: The weight factors that modify the navigation behavior. See the [Social Force Model](https://github.com/robotics-upo/lightsfm) for further information.
+- `pedestrians/update_rate`: Update rate of pedestrains presentation. The higher `update_rate`, the more sluggish the environment becomes.
 - `pedestrians/ped_tracker`: Pedestrians tracker thread. *NOTE: Need `Pytorch` environment!*
   - `enable`: Enable the tracker.
   - `model`: Select the detection model. *Optional: `DROW3` or `DR-SPAAM`*
@@ -96,9 +155,33 @@ Explanation:
   - `ignore_obstacles`: All the models that must be ignored as obstacles, must be indicated here. The other actors in the world are included automatically.
   - `trajectory`. The list of goal points that the actor must reach must be indicated here. The goals will be post into social force model.
 
+```yaml
+## obstacles_config.yaml 
+
+# static obstacles
+obstacles:
+  - type: BOX
+    pose: 5 2 0 0 0 0
+    color: Grey
+    props:
+      m: 1.00
+      w: 0.25
+      d: 0.50
+      h: 0.80
+```
+Explanation:
+- `type`: model type of specific obstacle, *Optional: `BOX`, `CYLINDER` or `SPHERE`*
+- `pose`: fixed pose of the obstacle
+- `color`: color of the obstacle
+- `props`: property of the obstacle
+  - `m`: mass
+  - `w`: width
+  - `d`: depth
+  - `h`: height
+  - `r`: radius
 
 
-# Start
+# <span id="3">Start
 
 We provide a script to quickly start the world
 ```sh
@@ -106,10 +189,11 @@ cd ./pedestrian_simulation/scripts
 ./main.sh
 ```
 
-# More
+# <span id="4">More
 
-More examples could be found at [https://github.com/ai-winter/ros_motion_planning](https://github.com/ai-winter/ros_motion_planning).
+More examples could be found at [https://github.com/ai-winter/ros_motion_planning](https://github.com/ai-winter/ros_motion_planning). 
 
-# Acknowledgments
+
+# <span id="5">Acknowledgments
 * Pedestrian tracker: [2D_lidar_person_detection](https://github.com/VisualComputingInstitute/2D_lidar_person_detection)
 * Pedestrian RVIZ visualization: [spencer_tracking_rviz_plugin](https://github.com/srl-freiburg/spencer_tracking_rviz_plugin)
