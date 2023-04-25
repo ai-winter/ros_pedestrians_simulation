@@ -281,7 +281,8 @@ void PedestrianSFMPlugin::handleObstacles()
   for (unsigned int i = 0; i < world_->ModelCount(); ++i)
   {
     physics::ModelPtr model = world_->ModelByIndex(i);
-    if (std::find(ignore_models_.begin(), ignore_models_.end(), model->GetName()) == ignore_models_.end())
+    if (((int)model->GetType() != (int)actor_->GetType()) &&
+        std::find(ignore_models_.begin(), ignore_models_.end(), model->GetName()) == ignore_models_.end())
     {
       // simple method, suppose BBs are AABBs
       ignition::math::Vector3d actorPos = actor_->WorldPose().Pos();
