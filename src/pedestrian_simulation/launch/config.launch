@@ -1,6 +1,5 @@
 <launch>
-  <arg name="TURTLEBOT3_MODEL" value="waffle" />
-  <arg name="model" default="$(arg TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]" />
+  <arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]" />
   <arg name="map" default="" doc="map type [warehouse, workshop, turtlebot3_house, ...]" />
   <arg name="world" default="" />
 
