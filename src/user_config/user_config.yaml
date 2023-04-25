@@ -1,5 +1,6 @@
 map: test_scene
-world: empty
+# world: empty
+world: gap
 robot_config:
   robot_type: turtlebot3_waffle
   robot_x_pos: 5.0
@@ -7,7 +8,6 @@ robot_config:
   robot_z_pos: 0.0
   robot_yaw: 0.0
 rviz_file: sim_env.rviz
-pedestrians: ped_circle_config.yaml
-# pedestrians: pedestrians_config.yaml
-
+# pedestrians: ped_circle_config.yaml
+pedestrians: ped_gap_config.yaml
 obstacles: obstacles_config.yaml

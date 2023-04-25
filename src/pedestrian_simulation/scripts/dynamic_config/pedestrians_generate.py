@@ -26,7 +26,7 @@ class PedGenerator(XMLGenerator):
             self.ped_cfg = PedGenerator.yamlParser(self.root_path + "user_config/" + self.user_cfg["pedestrians"])
         else:
             self.ped_cfg = None
-    
+
     def __str__(self) -> str:
         return "Pedestrians Generator"
 
@@ -36,29 +36,29 @@ class PedGenerator(XMLGenerator):
         """
         app_register = []
         if not self.ped_cfg is None:
-            '''dynamic confiugre'''
+            """dynamic confiugre"""
             self.writePedestrianWorld(self.ped_path + "worlds/" + self.user_cfg["world"] + "_with_pedestrians.world")
 
-            '''app register'''
+            """app register"""
             # world generation
-            ped_world = PedGenerator.createElement("arg", props={"name": "world", 
-                "value": self.user_cfg["world"] + "_with_pedestrians"})
+            ped_world = PedGenerator.createElement("arg", props={"name": "world", "value": self.user_cfg["world"] + "_with_pedestrians"})
             app_register.append(ped_world)
             # pedestrians tracker
             if self.ped_cfg["pedestrians"]["ped_tracker"]["enable"]:
-                tracker = PedGenerator.createElement("node", props={"pkg": "pedestrian_tracker",
-                    "type": "dr_spaam_ros.py", "name": "pedestrian_tracker", "output": "screen"})
-                
+                tracker = PedGenerator.createElement(
+                    "node", props={"pkg": "pedestrian_tracker", "type": "dr_spaam_ros.py", "name": "pedestrian_tracker", "output": "screen"}
+                )
+
                 weight = "$(find pedestrian_tracker)/weight/" + self.ped_cfg["pedestrians"]["ped_tracker"]["weight"]
                 model = self.ped_cfg["pedestrians"]["ped_tracker"]["model"]
-                tracker.append(PedGenerator.createElement("param", props={"name": "weight", "value": weight}))    
+                tracker.append(PedGenerator.createElement("param", props={"name": "weight", "value": weight}))
                 tracker.append(PedGenerator.createElement("param", props={"name": "model", "value": model}))
                 app_register.append(tracker)
         else:
             # world generation
             ped_world = PedGenerator.createElement("arg", props={"name": "world", "value": self.user_cfg["world"]})
             app_register.append(ped_world)
-        
+
         return app_register
 
     def writePedestrianWorld(self, path):
@@ -152,17 +152,28 @@ class PedGenerator(XMLGenerator):
             plugin.append(PedGenerator.createElement("people_distance", text=str(sfm["people_distance"])))
             plugin.append(PedGenerator.createElement("goal_weight", text=str(sfm["goal_weight"])))
             plugin.append(PedGenerator.createElement("obstacle_weight", text=str(sfm["obstacle_weight"])))
-            plugin.append(PedGenerator.createElement("social_weight", text=str(sfm["social_weight"])))
+            # plugin.append(PedGenerator.createElement("social_weight", text=str(sfm["social_weight"])))
             plugin.append(PedGenerator.createElement("group_gaze_weight", text=str(sfm["group_gaze_weight"])))
             plugin.append(PedGenerator.createElement("group_coh_weight", text=str(sfm["group_coh_weight"])))
             plugin.append(PedGenerator.createElement("group_rep_weight", text=str(sfm["group_rep_weight"])))
-            
+
+            if "social_weight" in human:
+                plugin.append(PedGenerator.createElement("social_weight", text=str(human["social_weight"])))
+            else:
+                plugin.append(PedGenerator.createElement("social_weight", text=str(sfm["social_weight"])))
+
             if "time_delay" in human.keys():
                 plugin.append(PedGenerator.createElement("time_delay", text=str(human["time_delay"])))
 
             ignore_obstacles = PedGenerator.createElement("ignore_obstacles")
             for model in human["ignore"].values():
                 ignore_obstacles.append(PedGenerator.createElement("model", text=model))
+
+            if "group" in human:
+                group_actors = PedGenerator.createElement("group")
+                for model in human["group"].values():
+                    group_actors.append(PedGenerator.createElement("model", text=model))
+                plugin.append(group_actors)
 
             trajectory = PedGenerator.createElement("trajectory")
             for goal in human["trajectory"].values():
@@ -178,7 +189,7 @@ class PedGenerator(XMLGenerator):
 
             if not plugin_visual is None:
                 actor.append(plugin_visual)
-            
+
             PedGenerator.indent(actor)
 
             return actor

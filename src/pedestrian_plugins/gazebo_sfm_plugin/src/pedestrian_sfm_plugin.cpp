@@ -34,7 +34,6 @@ PedestrianSFMPlugin::PedestrianSFMPlugin() : pose_init_(false), time_delay_(0.0)
  */
 PedestrianSFMPlugin::~PedestrianSFMPlugin()
 {
-  pose_pub_.shutdown();
 }
 
 /**
@@ -103,7 +102,6 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     for (const auto& collision : link->GetCollisions())
     {
       auto name = collision->GetName();
-      // std::cout<<scales[name]<<std::endl;
       if (scales.find(name) != scales.end())
       {
         auto boxShape = boost::dynamic_pointer_cast<gazebo::physics::BoxShape>(collision->GetShape());
@@ -113,9 +111,7 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
       }
 
       if (offsets.find(name) != offsets.end())
-      {
         collision->SetInitialRelativePose(offsets[name] + collision->InitialRelativePose());
-      }
     }
   }
 
@@ -142,7 +138,7 @@ void PedestrianSFMPlugin::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
       event::Events::ConnectWorldUpdateBegin(std::bind(&PedestrianSFMPlugin::OnUpdate, this, std::placeholders::_1)));
 
   // Initialize the social force model.
-  this->Reset();
+  Reset();
 }
 
 /**
@@ -187,7 +183,6 @@ void PedestrianSFMPlugin::Reset()
   // Initialize sfm actor position
   ignition::math::Vector3d pos = actor_->WorldPose().Pos();
   ignition::math::Vector3d rpy = actor_->WorldPose().Rot().Euler();
-
   sfm_actor_.position.set(pos.X(), pos.Y());
   sfm_actor_.yaw = utils::Angle::fromRadian(rpy.Z());
   ignition::math::Vector3d linvel = actor_->WorldLinearVel();
@@ -244,7 +239,9 @@ void PedestrianSFMPlugin::Reset()
     sfm_actor_.groupId = sfm_actor_.id;
   }
   else
+  {
     sfm_actor_.groupId = -1;
+  }
 
   // Read in the other obstacles to ignore
   if (sdf_->HasElement("ignore_obstacles"))
@@ -281,9 +278,13 @@ void PedestrianSFMPlugin::handleObstacles()
   for (unsigned int i = 0; i < world_->ModelCount(); ++i)
   {
     physics::ModelPtr model = world_->ModelByIndex(i);
+
+    // if model is not ignored
     if (((int)model->GetType() != (int)actor_->GetType()) &&
         std::find(ignore_models_.begin(), ignore_models_.end(), model->GetName()) == ignore_models_.end())
     {
+      // ROS_WARN("name: %s", model->GetName().c_str());
+
       // simple method, suppose BBs are AABBs
       ignition::math::Vector3d actorPos = actor_->WorldPose().Pos();
       ignition::math::Vector3d modelPos = model->WorldPose().Pos();
@@ -296,6 +297,7 @@ void PedestrianSFMPlugin::handleObstacles()
       double max_z = model->BoundingBox().Max().Z();
       double min_z = model->BoundingBox().Min().Z();
 
+      // closest point on the AABB, offset towards model center
       ignition::math::Vector3d closest_point;
       double closest_weight = 0.8;
       closest_point.X() =
@@ -304,6 +306,8 @@ void PedestrianSFMPlugin::handleObstacles()
           ignition::math::clamp(closest_weight * actorPos.Y() + (1 - closest_weight) * modelPos.Y(), min_y, max_y);
       closest_point.Z() =
           ignition::math::clamp(closest_weight * actorPos.Z() + (1 - closest_weight) * modelPos.Z(), min_z, max_z);
+
+      // calculate distance
       ignition::math::Vector3d offset = closest_point - actorPos;
       double model_dist = offset.Length();
       if (model_dist < min_dist)
@@ -330,7 +334,7 @@ void PedestrianSFMPlugin::handlePedestrians()
   {
     physics::ModelPtr model = world_->ModelByIndex(i);
 
-    if (model->GetId() != actor_->GetId() && ((int)model->GetType() == (int)actor_->GetType()))
+    if (((int)model->GetType() == (int)actor_->GetType()) && model->GetId() != actor_->GetId())
     {
       ignition::math::Pose3d model_pose = model->WorldPose();
       ignition::math::Vector3d pos = model_pose.Pos() - actor_->WorldPose().Pos();
@@ -382,17 +386,18 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
     ignition::math::Pose3d actor_pose = actor_->WorldPose();
 
     // update closest obstacle
-    this->handleObstacles();
+    handleObstacles();
+
     // update pedestrian around
-    this->handlePedestrians();
+    handlePedestrians();
 
     // Compute Social Forces
     sfm::SFM.computeForces(sfm_actor_, other_actors_);
     // Update model
     sfm::SFM.updatePosition(sfm_actor_, dt);
 
-    utils::Angle h = this->sfm_actor_.yaw;
-    utils::Angle add = utils::Angle::fromRadian(1.5707);
+    utils::Angle h = sfm_actor_.yaw;
+    utils::Angle add = utils::Angle::fromRadian(IGN_PI_2);
     h = h + add;
     double yaw = h.toRadian();
 
@@ -408,7 +413,7 @@ void PedestrianSFMPlugin::OnUpdate(const common::UpdateInfo& _info)
     actor_pose.Pos().X(sfm_actor_.position.getX());
     actor_pose.Pos().Y(sfm_actor_.position.getY());
     actor_pose.Pos().Z(1.0);
-    actor_pose.Rot() = ignition::math::Quaterniond(1.5707, 0, yaw);
+    actor_pose.Rot() = ignition::math::Quaterniond(IGN_PI_2, 0, yaw);
 
     // Distance traveled is used to coordinate motion with the walking
     double distance_traveled = (actor_pose.Pos() - actor_->WorldPose().Pos()).Length();
@@ -476,5 +481,7 @@ bool PedestrianSFMPlugin::OnStateCallBack(gazebo_sfm_plugin::ped_state::Request&
     return true;
   }
   else
+  {
     return false;
+  }
 }
