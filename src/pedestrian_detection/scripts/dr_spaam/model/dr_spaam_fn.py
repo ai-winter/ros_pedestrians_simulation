@@ -217,7 +217,7 @@ def _model_eval_fn(model, batch_dict):
             anns_rphi = np.array(anns_rphi, dtype=np.float32)
             gts_xy = np.stack(u.rphi_to_xy(anns_rphi[:, 0], anns_rphi[:, 1]), axis=1)
             gts_occluded = np.logical_not(batch_dict["anns_valid_mask"][ib]).astype(
-                np.int
+                np.int64
             )
             gts_str = pru.drow_detection_to_kitti_string(gts_xy, None, gts_occluded)
             file_dict[f"groundtruth/{sequence}/{frame_id}"] = gts_str

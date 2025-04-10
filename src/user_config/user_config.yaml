@@ -1,4 +1,4 @@
-map: test_scene
+map: blank
 world: empty
 robot_config:
   robot_type: turtlebot3_waffle
@@ -10,4 +10,4 @@ rviz_file: sim_env.rviz
 pedestrians: ped_circle_config.yaml
 # pedestrians: pedestrians_config.yaml
 
-obstacles: obstacles_config.yaml
+# obstacles: obstacles_config.yaml

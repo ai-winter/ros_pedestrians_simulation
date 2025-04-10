@@ -1,24 +1,25 @@
 {
-  "configurations": [
-      {
-          "browse": {
-              "databaseFilename": "",
-              "limitSymbolsToIncludedHeaders": true
-          },
-          "includePath": [
-              "/opt/ros/noetic/include/**",
-              "/usr/include/**",
-              "/usr/lib/**",
-              "/usr/local/include",
-              "${workspaceFolder}/**"
-          ],
-          "name": "ROS",
-          "defines": [],
-          "compilerPath": "/usr/bin/g++",
-          "cStandard": "gnu17",
-          "cppStandard": "c++17",
-          "intelliSenseMode": "linux-gcc-x64"
-      }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/opt/ros/noetic/include/**",
+                "/usr/include/**",
+                "/usr/lib/**",
+                "/usr/local/include",
+                "${workspaceFolder}/**",
+                "~/.conan/data/**"
+            ],
+            "name": "ROS",
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "gnu17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
 }

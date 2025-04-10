@@ -1,14 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <launch>
 	<arg name="world" value="empty_with_pedestrians" />
-	<node pkg="ped_simulation" type="obstacles_genertate_ros.py" name="obstacles_generate" args="user_config.yaml" output="screen" />
+	<node pkg="pedestrian_detection" type="dr_spaam_ros.py" name="pedestrian_detection" output="screen">
+		<param name="weight" value="$(find pedestrian_detection)/weight/ckpt_jrdb_ann_drow3_e40.pth" />
+		<param name="model" value="DROW3" />
+	</node>
 	<include file="$(find ped_simulation)/launch/config.launch">
 		<arg name="model" value="turtlebot3_waffle" />
 		<arg name="x_pos" value="5.0" />
 		<arg name="y_pos" value="1.0" />
 		<arg name="z_pos" value="0.0" />
 		<arg name="yaw" value="0.0" />
-		<arg name="map" value="test_scene" />
+		<arg name="map" value="blank" />
 		<arg name="rviz_file" value="sim_env.rviz" />
 		<arg name="world" value="$(arg world)" />
 	</include>

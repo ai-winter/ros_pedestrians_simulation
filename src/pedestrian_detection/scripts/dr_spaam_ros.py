@@ -184,7 +184,7 @@ class DrSpaamROS:
         pos_scan.point.y = -d_xy[1]
         pos_scan.point.z = 0.0
 
-        pos_map = self.tf_buffer.transform(pos_scan, "map")
+        pos_map = self.tf_buffer.transform(pos_scan, "map", timeout=rospy.Duration(0.5))
         return (pos_map.point.x, pos_map.point.y)
 
 

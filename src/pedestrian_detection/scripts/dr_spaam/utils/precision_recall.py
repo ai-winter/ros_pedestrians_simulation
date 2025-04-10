@@ -29,7 +29,7 @@ def drow_detection_to_kitti_string(dets_xy, dets_cls, occluded):
         dets_cls = np.ones(len(dets_xy), dtype=np.float32)
 
     if occluded is None:
-        occluded = np.zeros(len(dets_xy), dtype=np.int)
+        occluded = np.zeros(len(dets_xy), dtype=np.int64)
 
     s = ""
     for cls, xy, occ in zip(dets_cls, dets_xy, occluded):
@@ -54,7 +54,7 @@ def kitti_string_to_drow_detection(s):
 
     dets_cls = np.array(dets_cls, dtype=np.float32)
     dets_xy = np.array(dets_xy, dtype=np.float32)
-    occluded = np.array(occluded, dtype=np.int)
+    occluded = np.array(occluded, dtype=np.int64)
 
     return dets_xy, dets_cls, occluded
 
@@ -377,9 +377,9 @@ def get_precision_recall_one_hot(
 
     # get distance distribution
     if dist_bins is not None:
-        gt_hist = np.zeros(len(dist_bins), dtype=np.int)
-        tp_hist = np.zeros(len(dist_bins), dtype=np.int)
-        fp_hist = np.zeros(len(dist_bins), dtype=np.int)
+        gt_hist = np.zeros(len(dist_bins), dtype=np.int64)
+        tp_hist = np.zeros(len(dist_bins), dtype=np.int64)
+        fp_hist = np.zeros(len(dist_bins), dtype=np.int64)
 
     # accmulate results for all frames
     max_idx = max(dets_inds.max(), gts_inds.max())

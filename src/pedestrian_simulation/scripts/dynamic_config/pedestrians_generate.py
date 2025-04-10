@@ -46,10 +46,10 @@ class PedGenerator(XMLGenerator):
             app_register.append(ped_world)
             # pedestrians tracker
             if self.ped_cfg["pedestrians"]["ped_tracker"]["enable"]:
-                tracker = PedGenerator.createElement("node", props={"pkg": "pedestrian_tracker",
-                    "type": "dr_spaam_ros.py", "name": "pedestrian_tracker", "output": "screen"})
+                tracker = PedGenerator.createElement("node", props={"pkg": "pedestrian_detection",
+                    "type": "dr_spaam_ros.py", "name": "pedestrian_detection", "output": "screen"})
                 
-                weight = "$(find pedestrian_tracker)/weight/" + self.ped_cfg["pedestrians"]["ped_tracker"]["weight"]
+                weight = "$(find pedestrian_detection)/weight/" + self.ped_cfg["pedestrians"]["ped_tracker"]["weight"]
                 model = self.ped_cfg["pedestrians"]["ped_tracker"]["model"]
                 tracker.append(PedGenerator.createElement("param", props={"name": "weight", "value": weight}))    
                 tracker.append(PedGenerator.createElement("param", props={"name": "model", "value": model}))

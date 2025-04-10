@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>pedestrian_tracker</name>
+  <name>pedestrian_detection</name>
   <version>1.0.0</version>
-  <description>ROS interface for DR-SPAAM detector</description>
+  <description>pedestrian_detection</description>
 
   <maintainer email="913982779@qq.com">Winter</maintainer>
 

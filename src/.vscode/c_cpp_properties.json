@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/opt/ros/noetic/include/**",
+        "/home/winter/ROS/test_ped/devel/include/**",
+        "/home/winter/ROS/test_ped/src/pedestrian_plugins/gazebo_ped_visualizer_plugin/gazebo_ped_visualizer_plugin/include/**",
+        "/home/winter/ROS/test_ped/src/pedestrian_plugins/gazebo_sfm_plugin/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

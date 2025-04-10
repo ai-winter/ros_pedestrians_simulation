@@ -15,7 +15,7 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
   <!-- start map-server and publish user map -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find ped_simulation)/maps/$(arg map).yaml" unless="$(eval arg('map') == '')"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find ped_simulation)/maps/$(arg map)/$(arg map).yaml" unless="$(eval arg('map') == '')"/>
 
   <!-- Gazebo -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
