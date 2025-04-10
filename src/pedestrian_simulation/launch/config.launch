@@ -1,18 +1,18 @@
 <launch>
-  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]" />
   <arg name="map" default="" doc="map type [warehouse, workshop, turtlebot3_house, ...]" />
   <arg name="world" default="" />
 
   <!-- initial pose -->
-  <arg name="x_pos" default="0.0"/>
-  <arg name="y_pos" default="0.0"/>
-  <arg name="z_pos" default="0.0"/>
-  <arg name="yaw" default="0"/>
+  <arg name="x_pos" default="0.0" />
+  <arg name="y_pos" default="0.0" />
+  <arg name="z_pos" default="0.0" />
+  <arg name="yaw" default="0" />
 
   <!-- description -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find ped_simulation)/urdf/$(arg model).urdf.xacro" />
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
   <!-- start map-server and publish user map -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(find ped_simulation)/maps/$(arg map)/$(arg map).yaml" unless="$(eval arg('map') == '')"/>
@@ -21,20 +21,21 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find ped_simulation)/worlds/$(arg world).world" unless="$(eval arg('world') == '')" />
   </include>
-  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model $(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"
+    args="-urdf -model $(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
   <!-- AMCL -->
   <include file="$(find ped_simulation)/launch/include/amcl.launch.xml">
-        <arg name="robot_x" value="$(arg x_pos)" />
-        <arg name="robot_y" value="$(arg y_pos)" />
-        <arg name="robot_z" value="$(arg z_pos)" />
-    </include>
+    <arg name="robot_x" value="$(arg x_pos)" />
+    <arg name="robot_y" value="$(arg y_pos)" />
+    <arg name="robot_z" value="$(arg z_pos)" />
+  </include>
 
   <!-- MoveBase-->
   <include file="$(find ped_simulation)/launch/include/move_base.launch.xml" />
 
   <!-- RVIZ -->
-  <arg name="rviz_file" default=""/>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ped_simulation)/rviz/$(arg rviz_file)" unless="$(eval arg('rviz_file') == '')"/>
-  <node name="rviz" pkg="rviz" type="rviz" if="$(eval arg('rviz_file') == '')"/>
+  <arg name="rviz_file" default="" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ped_simulation)/rviz/$(arg rviz_file)" unless="$(eval arg('rviz_file') == '')" />
+  <node name="rviz" pkg="rviz" type="rviz" if="$(eval arg('rviz_file') == '')" />
 </launch>

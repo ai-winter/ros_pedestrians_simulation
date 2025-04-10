@@ -1,12 +1,12 @@
 ![pedestrians_environment](./assets/pedestrians_environment.png)
 
 ## Table of Contents
-- [Introduction](#0)
-- [File Tree](#1)
-- [Configuration](#2)
-- [Start](#3)
-- [More](#4)
-- [Acknowledgments](#5)
+- [Introduction](#introduction)
+- [File Tree](#file-tree)
+- [Configuration](#configuration)
+- [Start](#start)
+- [More](#more)
+- [Acknowledgments](#acknowledgments)
 
 # <span id="0">Introduction
 
@@ -41,21 +41,21 @@ ros_pedestrians_simulation
 # <span id="2">Configuration
 To start simulation, compile using `catkin_make`. You can directly using this folder as workspace.
 ```bash
-cd pedestrians_simulation/
+cd ros_pedestrians_simulation/
 catkin_make
 ```
 
 Or, we assume that your workspace is `~/sim_platform/`.
 ```sh
-cd ros_motion_planning/
-mv src/ ~/sim_platform/
+cd ros_pedestrians_simulation/
+cp -r src/* ~/sim_platform/src/
 cd ~/sim_platform/
 catkin_make
 ```
 
 Edit pedestrians configure
 ```sh
-cd src/config/
+cd ./user_config/
 touch user_config.yaml
 ```
 
